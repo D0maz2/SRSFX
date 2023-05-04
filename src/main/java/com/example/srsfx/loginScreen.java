@@ -17,8 +17,6 @@ public class loginScreen extends Application {
         stage.setTitle("SRS Login");
 //        Image thumbnail = new Image("thumbnail.png");
 //        stage.getIcons().add(thumbnail);
-        stage.setX(370);
-        stage.setY(180);
         stage.setScene(scene);
         stage.show();           //Must be at the end of the start function
     }
