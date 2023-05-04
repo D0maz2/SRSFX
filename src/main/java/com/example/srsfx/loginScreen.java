@@ -13,7 +13,7 @@ public class loginScreen extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(loginScreen.class.getResource("loginScreen.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 800, 450);
         stage.setResizable(false);
-        stage.setTitle("Hello!");
+        stage.setTitle("SRS Login");
         stage.setScene(scene);
         stage.show();
     }
