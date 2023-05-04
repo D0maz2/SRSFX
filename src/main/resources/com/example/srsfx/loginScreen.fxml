@@ -10,34 +10,34 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.srsfx.loginController">
    <children>
       <ImageView fitHeight="450.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@Pattern1.jpg" />
+            <Image url="@Pattern1%20-COLORS2-.jpg" />
          </image>
       </ImageView>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="356.0" prefWidth="294.0" style="-fx-background-color: F0F0F0;">
          <children>
             <Label layoutX="107.0" layoutY="14.0" text="Login">
                <font>
-                  <Font name="Bauhaus 93" size="35.0" />
+                  <Font name="Trebuchet MS" size="35.0" />
                </font>
             </Label>
             <Label layoutX="107.0" layoutY="83.0" text="Username">
                <font>
-                  <Font name="Bauhaus 93" size="18.0" />
+                  <Font name="Trebuchet MS" size="18.0" />
                </font>
             </Label>
-            <Label layoutX="107.0" layoutY="168.0" text="Password">
+            <Button fx:id="btnLogin" layoutX="41.0" layoutY="291.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="81.0" text="Login" />
+            <Button fx:id="btnRegister" layoutX="168.0" layoutY="291.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="81.0" text="Register" />
+            <TextField fx:id="tfUsername" layoutX="70.0" layoutY="124.0" />
+            <PasswordField fx:id="Password" layoutX="70.0" layoutY="216.0" />
+            <Label layoutX="107.0" layoutY="178.0" text="Password">
                <font>
-                  <Font name="Bauhaus 93" size="18.0" />
+                  <Font name="Trebuchet MS" size="18.0" />
                </font>
             </Label>
-            <Button layoutX="41.0" layoutY="291.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="81.0" text="Login" />
-            <Button layoutX="168.0" layoutY="291.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="81.0" text="Register" />
-            <TextField layoutX="70.0" layoutY="124.0" />
-            <PasswordField layoutX="70.0" layoutY="216.0" />
          </children>
       </AnchorPane>
    </children>
