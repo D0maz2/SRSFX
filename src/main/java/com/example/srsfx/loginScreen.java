@@ -5,7 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
 public class loginScreen extends Application {
@@ -15,8 +14,7 @@ public class loginScreen extends Application {
         Scene scene = new Scene(fxmlLoader.load(), 800, 450);
         stage.setResizable(false);
         stage.setTitle("SRS Login");
-//        Image thumbnail = new Image("thumbnail.png");
-//        stage.getIcons().add(thumbnail);
+        stage.getIcons().add(new Image(loginScreen.class.getResourceAsStream("/thumbnail.jpg")));
         stage.setScene(scene);
         stage.show();           //Must be at the end of the start function
     }

@@ -14,7 +14,7 @@
    <children>
       <ImageView fitHeight="450.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@Pattern1 -COLORS2-.jpg" />
+            <Image url="@../../../Pattern1 -COLORS2-.jpg" />
          </image>
       </ImageView>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="356.0" prefWidth="294.0" style="-fx-background-color: F0F0F0;">
