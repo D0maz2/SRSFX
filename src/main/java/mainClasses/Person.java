@@ -1,3 +1,5 @@
+package mainClasses;
+
 public abstract class Person {
     protected int ID;
     protected String name;
