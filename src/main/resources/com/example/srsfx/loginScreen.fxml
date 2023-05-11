@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.srsfx.loginController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.srsfx.sceneController">
    <children>
       <ImageView fitHeight="450.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -25,7 +25,7 @@
                </font>
             </Label>
             <Button fx:id="btnLogin" layoutX="41.0" layoutY="291.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="81.0" text="Login" />
-            <Button fx:id="btnRegister" layoutX="168.0" layoutY="291.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="81.0" text="Register" />
+            <Button fx:id="btnRegister" layoutX="168.0" layoutY="291.0" mnemonicParsing="false" onAction="#switchToRegister" prefHeight="30.0" prefWidth="81.0" text="Register" />
             <TextField fx:id="tfUsername" layoutX="70.0" layoutY="124.0" />
             <PasswordField fx:id="Password" layoutX="70.0" layoutY="216.0" />
             <Label layoutX="103.0" layoutY="178.0" text="Password">
