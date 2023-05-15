@@ -17,7 +17,7 @@
             <Image url="@../../../Pattern1 -COLORS2-.jpg" />
          </image>
       </ImageView>
-      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="356.0" prefWidth="294.0" style="-fx-background-color: F0F0F0;">
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="356.0" prefWidth="294.0" style="-fx-background-color: F0F0F0; -fx-background-radius: 10px;">
          <children>
             <Label layoutX="103.0" layoutY="12.0" text="Login">
                <font>
