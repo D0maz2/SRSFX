@@ -19,7 +19,7 @@
             <Image url="@../../../Pattern1 -COLORS2-.jpg" />
         </image>
     </ImageView>
-      <AnchorPane layoutX="40.0" layoutY="28.0" prefHeight="392.0" prefWidth="731.0" style="-fx-background-color: F0F0F0;">
+      <AnchorPane layoutX="40.0" layoutY="28.0" prefHeight="392.0" prefWidth="731.0" style="-fx-background-color: F0F0F0; -fx-background-radius: 10px;">
          <children>
             <Label layoutX="62.0" layoutY="29.0" prefHeight="25.0" prefWidth="97.0" text="Profession">
                <font>
@@ -68,22 +68,22 @@
                   <Font name="Krub SemiBold" size="14.0" />
                </font>
             </Label>
-            <TextField layoutX="151.0" layoutY="80.0" promptText="Enter your Full Name" />
-            <TextField layoutX="151.0" layoutY="123.0" promptText="Enter ID given by administrator" />
-            <TextField layoutX="151.0" layoutY="171.0" promptText="Type your address" />
-            <TextField layoutX="151.0" layoutY="216.0" promptText="Enter your telphone number" />
-            <DatePicker layoutX="151.0" layoutY="266.0" prefHeight="25.0" prefWidth="149.0" promptText="Enter a Date" />
-            <Button layoutX="115.0" layoutY="359.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="213.0" text="Button" />
+            <TextField fx:id="stuName" layoutX="151.0" layoutY="80.0" promptText="Enter your Full Name" />
+            <TextField fx:id="stuId" layoutX="151.0" layoutY="123.0" promptText="Enter ID given by administrator" />
+            <TextField fx:id="stuAddress" layoutX="151.0" layoutY="171.0" promptText="Type your address" />
+            <TextField fx:id="stuNumber" layoutX="151.0" layoutY="216.0" promptText="Enter your telphone number" />
+            <DatePicker fx:id="stuDate" layoutX="151.0" layoutY="266.0" prefHeight="25.0" prefWidth="149.0" promptText="Enter a Date" />
+            <Button fx:id="btnRegister" layoutX="115.0" layoutY="359.0" mnemonicParsing="false" onAction="#Registerclick" prefHeight="25.0" prefWidth="213.0" text="Register" />
             <Button fx:id="btnCancel" layoutX="440.0" layoutY="359.0" mnemonicParsing="false" onAction="#cancelOnclick" prefHeight="25.0" prefWidth="213.0" text="Cancel" />
-            <RadioButton fx:id="rdbtnCS" layoutX="226.0" layoutY="325.0" mnemonicParsing="false" text="CyberSecurity">
+            <RadioButton fx:id="rdbtnCS" layoutX="226.0" layoutY="325.0" mnemonicParsing="false" text="Cyber Security">
                <toggleGroup>
                   <ToggleGroup fx:id="Dpt" />
                </toggleGroup>
             </RadioButton>
-            <RadioButton fx:id="rdbtnIS" layoutX="337.0" layoutY="325.0" mnemonicParsing="false" text="IntelligentSystems" toggleGroup="$Dpt" />
-            <RadioButton fx:id="rdbtnBI" layoutX="483.0" layoutY="325.0" mnemonicParsing="false" text="BusinessIntelligence" toggleGroup="$Dpt" />
+            <RadioButton fx:id="rdbtnIS" layoutX="337.0" layoutY="325.0" mnemonicParsing="false" text="Intelligent Systems" toggleGroup="$Dpt" />
+            <RadioButton fx:id="rdbtnBI" layoutX="483.0" layoutY="325.0" mnemonicParsing="false" text="Business Intelligence" toggleGroup="$Dpt" />
             <RadioButton fx:id="rdbtnMedia" layoutX="633.0" layoutY="325.0" mnemonicParsing="false" text="Media" toggleGroup="$Dpt" />
-            <RadioButton fx:id="rdbtnDS" layoutX="116.0" layoutY="325.0" mnemonicParsing="false" text="DataScience" toggleGroup="$Dpt" />
+            <RadioButton fx:id="rdbtnDS" layoutX="116.0" layoutY="325.0" mnemonicParsing="false" text="Data Science" toggleGroup="$Dpt" />
             <Label fx:id="EnrollmentYear" layoutX="396.0" layoutY="80.0" prefHeight="25.0" prefWidth="118.0" text="Enrollment Year:">
                <font>
                   <Font name="Krub SemiBold" size="14.0" />
