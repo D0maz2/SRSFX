@@ -8,16 +8,20 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import javafx.collections.FXCollections;
 import mainClasses.Department;
 import mainClasses.Instructor;
 import mainClasses.Student;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Objects;
 
 public class registerController {
@@ -60,6 +64,14 @@ TextField stuNumber;
 DatePicker stuDate;
 @FXML
 TextField stuAddress;
+@FXML
+PasswordField passid;
+@FXML
+PasswordField confpassid;
+@FXML
+Label passerror;
+
+
 
 ObservableList<String> list = FXCollections.observableArrayList();
 public void initialize(){
@@ -130,12 +142,53 @@ public static Department DepsSTUDENT(String name){
     }
     return dep;
 }
-public void Registerclick(ActionEvent event) throws IOException {
+public boolean passwordSave(String password,String confPassword) throws IOException, NoSuchAlgorithmException {
+    Workbook workbook = new HSSFWorkbook(new FileInputStream("password.xls"));
+    Sheet sheet = workbook.getSheet("password");
+    int lastRowindex = sheet.getLastRowNum()+1;
+    boolean done = false;
+    if (Objects.equals(password, confPassword)){
+        sheet.createRow(lastRowindex).createCell(0).setCellValue(stuId.getText());
+        sheet.getRow(lastRowindex).createCell(1).setCellValue(hashPassword(password));
+        FileOutputStream fos = new FileOutputStream("password.xls");
+        workbook.write(fos);
+        fos.close();
+        done = true;
+
+    }else {
+        passerror.setText("Password is not the same !!");
+        passerror.setTextFill(Color.RED);
+    }
+    return done;
+}
+    public static String hashPassword(String password) throws NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+        byte[] hash = md.digest(password.getBytes());
+
+        StringBuilder sb = new StringBuilder();
+        for (byte b : hash) {
+            sb.append(String.format("%02x", b));
+        }
+        String hashedPassword = sb.toString();
+
+        return hashedPassword;
+    }
+public void Registerclick(ActionEvent event) throws IOException, NoSuchAlgorithmException {
     if (rdbtnStudent.isSelected()) {
         RadioButton dep = (RadioButton) Dpt.getSelectedToggle();
         Student s1 = new Student(Integer.parseInt(stuId.getText()), stuName.getText(), stuDate.getValue().toString(), stuAddress.getText(), stuNumber.getText(), Integer.parseInt(tfEnrollmentYear.getText()), cboxSemester.getValue().toString(), null, null, DepsSTUDENT(dep.getText()), 0, 0);
-        s1.saveData();
-        System.out.println("Registered!!!");
+        if (passwordSave(passid.getText(), confpassid.getText())) {
+            s1.saveData();
+            FXMLLoader fxmlLoader = new FXMLLoader(loginScreen.class.getResource("loginScreen.fxml"));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(fxmlLoader.load(), 800, 450);
+            stage.setResizable(false);
+            stage.setTitle("SRS Login");
+            stage.getIcons().add(new Image(registerController.class.getResourceAsStream("/thumbnail.jpg")));
+            stage.setScene(scene);
+            stage.show();
+        }
+
     }else if (rdbtnInstructor.isSelected()){
         System.out.println("instructor done !!");
     }
