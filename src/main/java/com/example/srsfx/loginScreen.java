@@ -15,7 +15,7 @@ public class loginScreen extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(loginScreen.class.getResource("loginScreen.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 800, 450);
         stage.setResizable(false);
-        stage.setTitle("SRS Login");
+        stage.setTitle("FCDS Login");
         stage.getIcons().add(new Image(loginScreen.class.getResourceAsStream("/thumbnail.jpg")));
         stage.setScene(scene);
         stage.show();           //Must be at the end of the start function

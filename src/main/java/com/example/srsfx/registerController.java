@@ -22,6 +22,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import java.io.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class registerController {
@@ -183,15 +184,41 @@ public void Registerclick(ActionEvent event) throws IOException, NoSuchAlgorithm
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(fxmlLoader.load(), 800, 450);
             stage.setResizable(false);
-            stage.setTitle("SRS Login");
+            stage.setTitle("FCDS Login");
             stage.getIcons().add(new Image(registerController.class.getResourceAsStream("/thumbnail.jpg")));
             stage.setScene(scene);
             stage.show();
         }
 
-    }else if (rdbtnInstructor.isSelected()){
-        System.out.println("instructor done !!");
+    }else if (rdbtnInstructor.isSelected()) {
+        ArrayList<String> deps = new ArrayList<>();
+        if (rdbtnBI.isSelected()) {
+            deps.add(rdbtnBI.getText());
+        }
+        if (rdbtnCS.isSelected()) {
+            deps.add(rdbtnCS.getText());
+        }
+        if (rdbtnDS.isSelected()) {
+            deps.add(rdbtnDS.getText());
+        }
+        if (rdbtnIS.isSelected()) {
+            deps.add(rdbtnIS.getText());
+        }
+        if (rdbtnMedia.isSelected()) {
+            deps.add(rdbtnMedia.getText());
+        }
+        Instructor i1 = new Instructor(Integer.parseInt(stuId.getText()), stuName.getText(), stuDate.getValue().toString(), stuAddress.getText(), stuNumber.getText(), null);
+        if (passwordSave(passid.getText(), confpassid.getText())) {
+            i1.saveData();
+            FXMLLoader fxmlLoader = new FXMLLoader(loginScreen.class.getResource("loginScreen.fxml"));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(fxmlLoader.load(), 800, 450);
+            stage.setResizable(false);
+            stage.setTitle("SRS Login");
+            stage.getIcons().add(new Image(registerController.class.getResourceAsStream("/thumbnail.jpg")));
+            stage.setScene(scene);
+            stage.show();
+        }
     }
-
 }
 }
