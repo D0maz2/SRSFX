@@ -89,7 +89,7 @@ public class Instructor extends Person{
         workbook.write(fos);
         fos.close();
         System.out.println("Data saved: " + "Database_instructors.xls");
-        loadDepartments();
+        //loadDepartments();
 
     }
 
