@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class Student extends Person{
     private int enrolledYear;
@@ -146,8 +147,8 @@ public class Student extends Person{
             sheet = workbook.createSheet(""+getID());
         }
         Row data_row = sheet.createRow(0);
+        int i = 0;
         for(String j: header) {
-            int i =0;
             data_row.createCell(i).setCellValue(j);
             i++;
         }
@@ -169,9 +170,10 @@ public class Student extends Person{
         workbook.write(fos);
         fos.close();
         System.out.println("Data saved: " + "Database.xls");
-        loadCourse();
+        //loadCourse();
 
     }
+
 
     @Override
     public String toString() {
