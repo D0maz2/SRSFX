@@ -17,7 +17,7 @@ public class Course {
     private ArrayList<Course> prerequisites;
     private ArrayList<String> textbooks;
     private String grade;
-
+    private ArrayList<Student> students;
 
     public Course(String name, int courseNumber, Instructor instructor, ArrayList<Department> departments, int term, int credits, Classroom classroom, int[] periods, String dayOfTheWeek, ArrayList<Course> prerequisites, ArrayList<String> textbooks, String grade)
     {
@@ -130,6 +130,8 @@ public class Course {
     {
         this.grade = grade;
     }
+    public ArrayList<Student> getStudents() {return students;}
+    public void setStudents(ArrayList<Student> students) {this.students = students;}
     @Override
     public String toString()
     {
@@ -148,12 +150,12 @@ public class Course {
                 ", grade='" + grade + '\'' +
                 '}';
     }
-    public boolean contains(ArrayList<Course> Courses){
+    public static boolean contains(Student Student,ArrayList<Course> Courses){
         boolean flag = false;
-        int count = this.getPrerequisites().size();
-        for(Course pre: this.getPrerequisites()){
+        int count = Courses.size();
+        for(Course studentCourses: Student.getAllRegisteredCourses()){
             for(Course course: Courses){
-                if(pre == course){
+                if(studentCourses == course){
                     count--;
                 }
             }

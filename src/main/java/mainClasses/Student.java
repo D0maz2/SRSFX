@@ -33,9 +33,10 @@ public class Student extends Person{
     }
     public void registerCourse(Course courseName)       //adds the newly registered course to both Current and allRegisteredCourses
     {
-        if(arePrerequisitesMet(courseName)){
-
-        }
+       // if(arePrerequisitesMet(courseName)){
+            courseName.getStudents().add(this);
+            courseName.getClassroom().setCurrentCapacity((courseName.getClassroom().getCurrentCapacity())+1);
+       // }
     }
     public int getEnrolledYear()
     {
@@ -93,22 +94,22 @@ public class Student extends Person{
     {
         this.CGPA = CGPA;
     }
-    public boolean arePrerequisitesMet(Course courseName)
-    {
-        boolean y = false;
-        int count = 0;
-        for(Course prerequisite : courseName.getPrerequisites()){
-            for(Course course : allRegisteredCourses){
-                if(course==prerequisite){
-                    count++;
-                }
-            }
-        }
-        if (count==courseName.getPrerequisites().size()){
-            y = true;
-        }
-        return y;
-    }
+//    public boolean arePrerequisitesMet(Course courseName)
+//    {
+//        boolean y = false;
+//        int count = 0;
+//        for(Course prerequisite : courseName.getPrerequisites()){
+//            for(Course course : allRegisteredCourses){
+//                if(course==prerequisite){
+//                    count++;
+//                }
+//            }
+//        }
+//        if (count==courseName.getPrerequisites().size()){
+//            y = true;
+//        }
+//        return y;
+//    }
     public void getTranscript(){
 
     }
