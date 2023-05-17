@@ -6,20 +6,21 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
 public class Student extends Person{
     private int enrolledYear;
     private String enrolledSemester;
-    private Course[] allRegisteredCourses;
-    private Course[] currentRegisteredCourses;
+    private ArrayList<Course> allRegisteredCourses;
+    private ArrayList<Course> currentRegisteredCourses;
     private Department department;
     private double GPA;
     private double CGPA;
 
 
-    public Student(int ID, String name, String dateOfBirth, String address, String telephoneNumber, int enrolledYear, String enrolledSemester, Course[] allRegisteredCourses, Course[] currentRegisteredCourses, Department department, double GPA, double CGPA)
+    public Student(int ID, String name, String dateOfBirth, String address, String telephoneNumber, int enrolledYear, String enrolledSemester, ArrayList<Course> allRegisteredCourses, ArrayList<Course> currentRegisteredCourses, Department department, double GPA, double CGPA)
     {
         super(ID, name, dateOfBirth, address, telephoneNumber);
         this.enrolledYear = enrolledYear;
@@ -52,19 +53,19 @@ public class Student extends Person{
     {
         this.enrolledSemester = enrolledSemester;
     }
-    public Course[] getAllRegisteredCourses()
+    public ArrayList<Course> getAllRegisteredCourses()
     {
         return allRegisteredCourses;
     }
-    public void setAllRegisteredCourses(Course[] allRegisteredCourses)
+    public void setAllRegisteredCourses(ArrayList<Course> allRegisteredCourses)
     {
         this.allRegisteredCourses = allRegisteredCourses;
     }
-    public Course[] getCurrentRegisteredCourses()
+    public ArrayList<Course> getCurrentRegisteredCourses()
     {
         return currentRegisteredCourses;
     }
-    public void setCurrentRegisteredCourses(Course[] currentRegisteredCourses)
+    public void setCurrentRegisteredCourses(ArrayList<Course> currentRegisteredCourses)
     {
         this.currentRegisteredCourses = currentRegisteredCourses;
     }
@@ -103,7 +104,7 @@ public class Student extends Person{
                 }
             }
         }
-        if (count==courseName.getPrerequisites().length){
+        if (count==courseName.getPrerequisites().size()){
             y = true;
         }
         return y;
@@ -115,16 +116,16 @@ public class Student extends Person{
     public void loadCourse() throws IOException {
         Workbook workbook = new HSSFWorkbook(new FileInputStream("Database.xls"));
         Sheet sheet = workbook.getSheet(""+getID());
-        System.out.println(getAllRegisteredCourses().length);
+        System.out.println(getAllRegisteredCourses().size());
         Row row;
-        for (int i = 0;i<getAllRegisteredCourses().length;i++){
+        for (int i = 0;i<getAllRegisteredCourses().size();i++){
             if(sheet.getRow(i+1) == null) {row = sheet.createRow(i+1);}
 
             else {row = sheet.getRow(i+1);}
 
-            row.createCell(10).setCellValue(getAllRegisteredCourses()[i].getName());
-            row.createCell(11).setCellValue(getAllRegisteredCourses()[i].getCredits());
-            row.createCell(12).setCellValue(getAllRegisteredCourses()[i].getGrade());
+            row.createCell(10).setCellValue(getAllRegisteredCourses().get(i).getName());
+            row.createCell(11).setCellValue(getAllRegisteredCourses().get(i).getCredits());
+            row.createCell(12).setCellValue(getAllRegisteredCourses().get(i).getGrade());
 
             for (int z = 0; z < row.getLastCellNum(); z++) {
                 sheet.autoSizeColumn(z);
@@ -185,8 +186,8 @@ public class Student extends Person{
                 ", telephoneNumber='" + telephoneNumber + '\'' +
                 "enrolledYear=" + enrolledYear +
                 ", enrolledSemester='" + enrolledSemester + '\'' +
-                ", allRegisteredCourses=" + Arrays.toString(allRegisteredCourses) +
-                ", currentRegisteredCourses=" + Arrays.toString(currentRegisteredCourses) +
+                ", allRegisteredCourses=" + allRegisteredCourses.toString() +
+                ", currentRegisteredCourses=" + currentRegisteredCourses.toString() +
                 ", department=" + department +
                 ", GPA=" + GPA +
                 ", CGPA=" + CGPA +

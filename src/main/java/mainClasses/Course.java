@@ -1,23 +1,25 @@
 package mainClasses;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Course {
+
     private String name;
     private int courseNumber;
     private Instructor instructor;
-    private Department[] departments;
+    private ArrayList<Department> departments;
     private int term;
     private int credits;
     private Classroom classroom;
     private int[] periods;
     private String dayOfTheWeek;
-    private Course[] prerequisites;
-    private String[] textbooks;
+    private ArrayList<Course> prerequisites;
+    private ArrayList<String> textbooks;
     private String grade;
 
 
-    public Course(String name, int courseNumber, Instructor instructor, Department[] departments, int term, int credits, Classroom classroom, int[] periods, String dayOfTheWeek, Course[] prerequisites, String[] textbooks, String grade)
+    public Course(String name, int courseNumber, Instructor instructor, ArrayList<Department> departments, int term, int credits, Classroom classroom, int[] periods, String dayOfTheWeek, ArrayList<Course> prerequisites, ArrayList<String> textbooks, String grade)
     {
         this.name = name;
         this.courseNumber = courseNumber;
@@ -56,11 +58,11 @@ public class Course {
     {
         this.instructor = instructor;
     }
-    public Department[] getDepartments()
+    public ArrayList<Department> getDepartments()
     {
         return departments;
     }
-    public void setDepartments(Department[] departments)
+    public void setDepartments(ArrayList<Department> departments)
     {
         this.departments = departments;
     }
@@ -104,19 +106,19 @@ public class Course {
     {
         this.dayOfTheWeek = dayOfTheWeek;
     }
-    public Course[] getPrerequisites()
+    public ArrayList<Course> getPrerequisites()
     {
         return prerequisites;
     }
-    public void setPrerequisites(Course[] prerequisites)
+    public void setPrerequisites(ArrayList<Course> prerequisites)
     {
         this.prerequisites = prerequisites;
     }
-    public String[] getTextbooks()
+    public ArrayList<String> getTextbooks()
     {
         return textbooks;
     }
-    public void setTextbooks(String[] textbooks)
+    public void setTextbooks(ArrayList<String> textbooks)
     {
         this.textbooks = textbooks;
     }
@@ -135,15 +137,30 @@ public class Course {
                 "name='" + name + '\'' +
                 ", courseNumber=" + courseNumber +
                 ", instructor=" + instructor +
-                ", departments=" + Arrays.toString(departments) +
+                ", departments=" + departments.toString() +
                 ", term=" + term +
                 ", credits=" + credits +
                 ", classroom=" + classroom +
                 ", periods=" + Arrays.toString(periods) +
                 ", dayOfTheWeek='" + dayOfTheWeek + '\'' +
-                ", prerequisites=" + Arrays.toString(prerequisites) +
-                ", textbooks=" + Arrays.toString(textbooks) +
+                ", prerequisites=" + prerequisites.toString() +
+                ", textbooks=" + textbooks.toString() +
                 ", grade='" + grade + '\'' +
                 '}';
+    }
+    public boolean contains(ArrayList<Course> Courses){
+        boolean flag = false;
+        int count = this.getPrerequisites().size();
+        for(Course pre: this.getPrerequisites()){
+            for(Course course: Courses){
+                if(pre == course){
+                    count--;
+                }
+            }
+        }
+        if(count==0){
+            flag = true;
+        }
+        return flag;
     }
 }

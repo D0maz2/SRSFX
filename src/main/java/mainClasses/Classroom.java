@@ -1,5 +1,6 @@
 package mainClasses;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Queue;
 
@@ -8,11 +9,11 @@ public class Classroom {
     private String location;
     private int currentCapacity;
     private int maxCapacity;
-    private Course[] coursesHeld;
+    private ArrayList<Course> coursesHeld;
     private Queue<Student> waitingList;
 
 
-    public Classroom(int ID, String location, int currentCapacity, int maxCapacity, Course[] coursesHeld, Queue<Student> waitingList)
+    public Classroom(int ID, String location, int currentCapacity, int maxCapacity, ArrayList<Course> coursesHeld, Queue<Student> waitingList)
     {
         this.ID = ID;
         this.location = location;
@@ -53,11 +54,11 @@ public class Classroom {
     {
         this.maxCapacity = maxCapacity;
     }
-    public Course[] getCoursesHeld()
+    public ArrayList<Course> getCoursesHeld()
     {
         return coursesHeld;
     }
-    public void setCoursesHeld(Course[] coursesHeld)
+    public void setCoursesHeld(ArrayList<Course> coursesHeld)
     {
         this.coursesHeld = coursesHeld;
     }
@@ -72,7 +73,7 @@ public class Classroom {
                 ", location='" + location + '\'' +
                 ", currentCapacity=" + currentCapacity +
                 ", maxCapacity=" + maxCapacity +
-                ", coursesHeld=" + Arrays.toString(coursesHeld) +
+                ", coursesHeld=" + coursesHeld.toString() +
                 ", waitingList=" + waitingList +
                 '}';
     }

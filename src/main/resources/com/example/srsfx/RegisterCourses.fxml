@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.srsfx.RegisterCoursesController">
+   <children>
+      <ImageView fitHeight="462.0" fitWidth="800.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../Pattern1%20-COLORS2-.jpg" />
+         </image>
+      </ImageView>
+      <AnchorPane layoutX="44.0" layoutY="39.0" prefHeight="392.0" prefWidth="731.0" style="-fx-background-color: F0F0F0; -fx-background-radius: 16px;" AnchorPane.bottomAnchor="29.699995" AnchorPane.leftAnchor="34.399997544" AnchorPane.rightAnchor="34.3999975" AnchorPane.topAnchor="29.699995">
+         <children>
+            <ComboBox fx:id="cboxTerm" layoutX="135.0" layoutY="14.0" prefWidth="150.0" promptText="Select Term" />
+            <Label layoutX="36.0" layoutY="18.0" text="Select Term:">
+               <font>
+                  <Font name="Krub SemiBold" size="14.0" />
+               </font>
+            </Label>
+            <TableView layoutX="20.0" layoutY="56.0" prefHeight="323.0" prefWidth="692.0">
+              <columns>
+                <TableColumn prefWidth="150.39996719360352" text="Course Name" />
+                  <TableColumn prefWidth="127.20001220703125" text="Course ID" />
+                  <TableColumn prefWidth="93.60003662109375" text="Day" />
+                  <TableColumn prefWidth="68.800048828125" text="Period" />
+                  <TableColumn minWidth="0.0" prefWidth="83.20004272460938" text="Classroom" />
+                  <TableColumn prefWidth="164.800048828125" text="Remaining Capacity" />
+              </columns>
+            </TableView>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
