@@ -20,6 +20,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Objects;
 
 import static javafx.scene.text.TextAlignment.CENTER;
@@ -52,6 +53,7 @@ public class loginController {
         stage.setScene(scene);
         stage.show();
     }
+
     public static boolean passwordCheck(String id,String password) throws IOException, NoSuchAlgorithmException {
         DataFormatter dataFormatter = new DataFormatter();
         Workbook workbook = new HSSFWorkbook(new FileInputStream("password.xls"));
@@ -87,12 +89,18 @@ public class loginController {
     public void btnLog(ActionEvent event) throws IOException, NoSuchAlgorithmException {
         String id = tfUsername.getText();
         String pass = Password.getText();
+
+        HomeController homeController = new HomeController();
+        homeController.setIdlogin(id);
+        homeController.setStudent(studentid.isSelected());
+
+
         if(instructorid.isSelected()) {
             if (passwordCheck(id, pass) && idCheck(id,false)) {
                 welcomeid.setText("Granted");
                 welcomeid.setTextFill(Color.GREEN);
                 welcomeid.setTextAlignment(CENTER);
-                FXMLLoader fxmlLoader = new FXMLLoader(loginScreen.class.getResource("Home.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(loginScreen.class.getResource("InstructorHome.fxml"));
                 stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 Scene scene = new Scene(fxmlLoader.load(), 800, 450);
                 stage.setResizable(false);
