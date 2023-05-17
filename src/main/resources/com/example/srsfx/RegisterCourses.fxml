@@ -26,14 +26,14 @@
             </Label>
             <TableView layoutX="20.0" layoutY="56.0" prefHeight="323.0" prefWidth="692.0">
               <columns>
-                <TableColumn prefWidth="149.00000381469727" text="Course Name" />
-                  <TableColumn prefWidth="110.0" text="Course ID" />
-                  <TableColumn prefWidth="73.0" text="Day" />
-                  <TableColumn prefWidth="61.0" text="Period" />
-                  <TableColumn minWidth="0.0" prefWidth="94.0" text="Classroom" />
-                  <TableColumn prefWidth="112.99996948242188" text="Instructor" />
-                  <TableColumn prefWidth="48.0" text="Credits" />
-                  <TableColumn prefWidth="42.0" text="Seats" />
+                <TableColumn fx:id="tcCourseName" prefWidth="149.00000381469727" text="Course Name" />
+                  <TableColumn fx:id="tcCourseID" prefWidth="110.0" text="Course ID" />
+                  <TableColumn fx:id="tcDay" prefWidth="73.0" text="Day" />
+                  <TableColumn fx:id="tcPeriod" prefWidth="61.0" text="Period" />
+                  <TableColumn fx:id="tcClassroom" minWidth="0.0" prefWidth="94.0" text="Classroom" />
+                  <TableColumn fx:id="tcInstructor" prefWidth="112.99996948242188" text="Instructor" />
+                  <TableColumn fx:id="tcCredits" prefWidth="48.0" text="Credits" />
+                  <TableColumn fx:id="tcSeats" prefWidth="42.0" text="Seats" />
               </columns>
             </TableView>
          </children>
