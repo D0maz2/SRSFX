@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.srsfx.InstructorHomeController">
+    <children>
+    <ImageView fitHeight="450.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
+        <image>
+            <Image url="@../../../Pattern1 -COLORS2-.jpg" />
+        </image>
+    </ImageView>
+      <AnchorPane layoutX="34.0" layoutY="29.0" prefHeight="392.0" prefWidth="731.0" style="-fx-background-color: F0F0F0; -fx-background-radius: 16px;">
+         <children>
+            <ImageView fx:id="profileid" fitHeight="200.0" fitWidth="200.0" layoutX="14.0" layoutY="14.0" preserveRatio="true">
+               <image>
+                  <Image url="@../../../Neutral%20PFP.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="btnCancel" layoutX="480.0" layoutY="338.0" mnemonicParsing="false" onAction="#cancelOnclick" prefHeight="25.0" prefWidth="213.0" text="Log out" />
+            <Label fx:id="lbName" alignment="CENTER" contentDisplay="CENTER" layoutX="30.0" layoutY="212.0" prefHeight="18.0" prefWidth="165.0" text="Name">
+               <font>
+                  <Font name="Krub SemiBold" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="454.0" layoutY="76.0" text="Departments:">
+               <font>
+                  <Font name="Krub SemiBold" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="214.0" layoutY="77.0" text="Phone number:">
+               <font>
+                  <Font name="Krub SemiBold" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="214.0" layoutY="112.0" text="Address:">
+               <font>
+                  <Font name="Krub SemiBold" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="214.0" layoutY="40.0" text="ID:">
+               <font>
+                  <Font name="Krub SemiBold" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="452.0" layoutY="41.0" text="Date Of Birth:">
+               <font>
+                  <Font name="Krub SemiBold" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="lbDep" alignment="TOP_CENTER" layoutX="607.0" layoutY="79.0" prefHeight="84.0" prefWidth="111.0" text="Label" />
+            <Label fx:id="lbPhone" alignment="CENTER" layoutX="317.0" layoutY="76.0" prefHeight="18.0" prefWidth="126.0" text="Label" />
+            <Label fx:id="lbAddress" alignment="TOP_CENTER" layoutX="278.0" layoutY="112.0" prefHeight="58.0" prefWidth="174.0" text="Label" />
+            <Label fx:id="lbDOB" alignment="CENTER" layoutX="607.0" layoutY="41.0" prefHeight="18.0" prefWidth="111.0" text="Label" />
+            <Label fx:id="lbID" alignment="CENTER" layoutX="324.0" layoutY="40.0" prefHeight="18.0" prefWidth="111.0" text="Label" />
+            <Button layoutX="87.0" layoutY="256.0" mnemonicParsing="false" text="Button" />
+         </children>
+      </AnchorPane>
+    </children>
+
+</AnchorPane>
