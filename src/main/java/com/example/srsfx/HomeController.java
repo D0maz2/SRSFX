@@ -23,11 +23,11 @@ import java.util.ArrayList;
 public class HomeController {
     private static String idlogin;
 
-    public  boolean isStudent() {
+    public boolean isStudent() {
         return student;
     }
 
-    public  void setStudent(boolean student) {
+    public void setStudent(boolean student) {
         HomeController.student = student;
     }
 
@@ -60,69 +60,43 @@ public class HomeController {
     public void setIdlogin(String idlogin) {
         this.idlogin = idlogin;
     }
+
     public void initialize() throws IOException {
-        if(student) {
-            dataload(idlogin, student);
-        }else {
-            dataloadinstructor(idlogin,student);
-            //loadDeps(idlogin);
+            dataload(idlogin);
+    }
+        public void cancelOnclick (ActionEvent event) throws IOException {
+            FXMLLoader fxmlLoader = new FXMLLoader(loginScreen.class.getResource("loginScreen.fxml"));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(fxmlLoader.load(), 800, 450);
+            stage.setResizable(false);
+            stage.setTitle("FCDS Login");
+            stage.getIcons().add(new Image(registerController.class.getResourceAsStream("/thumbnail.jpg")));
+            stage.setScene(scene);
+            stage.show();
+        }
+        public void dataload (String id) throws IOException {
+            ArrayList<String> data = readData(id);
+            lbName.setText(data.get(0));
+            lbID.setText(data.get(1));
+            lbDOB.setText(data.get(2));
+            lbPhone.setText(data.get(3));
+            lbAddress.setText(data.get(4));
+            lbDep.setText(data.get(5));
+            lbCGPA.setText(data.get(7));
+            lbEY.setText(data.get(8));
+            lbES.setText(data.get(9));
         }
 
-    }
-    public void cancelOnclick(ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(loginScreen.class.getResource("loginScreen.fxml"));
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(fxmlLoader.load(), 800, 450);
-        stage.setResizable(false);
-        stage.setTitle("FCDS Login");
-        stage.getIcons().add(new Image(registerController.class.getResourceAsStream("/thumbnail.jpg")));
-        stage.setScene(scene);
-        stage.show();
-    }
-    public void dataload(String id,boolean student) throws IOException {
-        ArrayList<String> data = readData(id,student);
-        lbName.setText(data.get(0));
-        lbID.setText(data.get(1));
-        lbDOB.setText(data.get(2));
-        lbPhone.setText(data.get(3));
-        lbAddress.setText(data.get(4));
-        lbDep.setText(data.get(5));
-        lbCGPA.setText(data.get(7));
-        lbEY.setText(data.get(8));
-        lbES.setText(data.get(9));
-    }
-    public void dataloadinstructor(String id,boolean student) throws IOException {
-        ArrayList<String> data = readData(id,student);
-        lbName.setText(data.get(0));
-        lbID.setText(data.get(1));
-        lbDOB.setText(data.get(2));
-        lbPhone.setText(data.get(3));
-        lbAddress.setText(data.get(4));
-        lbDep.setText(data.get(5));
-
-    }
-    public ArrayList<String> loadDeps(String id) throws IOException {
-        ArrayList<String> data = new ArrayList<>();
-        Workbook workbook = new HSSFWorkbook(new FileInputStream("Database_instructors.xls"));
-        Sheet sheet = workbook.getSheet(id);
-        for (int i = 0;i<sheet.getPhysicalNumberOfRows();i++){
-            data.add(sheet.getRow(i).getCell(5).toString());
-        }
-        return data;
-    }
-    public ArrayList<String> readData(String id,boolean student) throws IOException {
-        ArrayList<String> data = new ArrayList<>();
-        Workbook workbook;
-        if(student) {
+        public ArrayList<String> readData (String id) throws IOException {
+            ArrayList<String> data = new ArrayList<>();
+            Workbook workbook;
             workbook = new HSSFWorkbook(new FileInputStream("Database.xls"));
-        }else {
-            workbook = new HSSFWorkbook(new FileInputStream("Database_instructors.xls"));
+            Sheet sheet = workbook.getSheet(id);
+            Row row = sheet.getRow(1);
+            for (int i = 0; i < row.getPhysicalNumberOfCells(); i++) {
+                data.add(row.getCell(i).toString());
+            }
+            return data;
         }
-        Sheet sheet = workbook.getSheet(id);
-        Row row = sheet.getRow(1);
-        for (int i =0 ;i<row.getPhysicalNumberOfCells();i++) {
-            data.add(row.getCell(i).toString());
-        }
-        return data;
     }
-}
+
