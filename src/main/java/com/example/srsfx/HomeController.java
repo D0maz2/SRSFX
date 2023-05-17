@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.LightBase;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -52,6 +53,8 @@ public class HomeController {
     Label lbES;
     @FXML
     Label lbAddress;
+    @FXML
+    Button registerid;
 
     public String getIdlogin() {
         return idlogin;
@@ -70,6 +73,16 @@ public class HomeController {
             Scene scene = new Scene(fxmlLoader.load(), 800, 450);
             stage.setResizable(false);
             stage.setTitle("FCDS Login");
+            stage.getIcons().add(new Image(registerController.class.getResourceAsStream("/thumbnail.jpg")));
+            stage.setScene(scene);
+            stage.show();
+        }
+        public void registerCoursebtn(ActionEvent event) throws IOException {
+            FXMLLoader fxmlLoader = new FXMLLoader(loginScreen.class.getResource("RegisterCourses.fxml"));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(fxmlLoader.load(), 800, 450);
+            stage.setResizable(false);
+            stage.setTitle("FCDS Courses");
             stage.getIcons().add(new Image(registerController.class.getResourceAsStream("/thumbnail.jpg")));
             stage.setScene(scene);
             stage.show();
