@@ -43,6 +43,8 @@ public class loginController {
 
     @FXML
     Label welcomeid;
+
+
     public void switchToRegister(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(loginScreen.class.getResource("registerScreen.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -91,12 +93,12 @@ public class loginController {
         String pass = Password.getText();
 
         HomeController homeController = new HomeController();
-        homeController.setIdlogin(id);
-        homeController.setStudent(studentid.isSelected());
+        InstructorHomeController instructorHomeController = new InstructorHomeController();
 
 
         if(instructorid.isSelected()) {
             if (passwordCheck(id, pass) && idCheck(id,false)) {
+                instructorHomeController.setIdlogininstructor(id);
                 welcomeid.setText("Granted");
                 welcomeid.setTextFill(Color.GREEN);
                 welcomeid.setTextAlignment(CENTER);
@@ -115,6 +117,7 @@ public class loginController {
             }
         }else if(studentid.isSelected()){
             if (passwordCheck(id, pass) && idCheck(id,true)) {
+                homeController.setIdlogin(id);
                 FXMLLoader fxmlLoader = new FXMLLoader(loginScreen.class.getResource("Home.fxml"));
                 stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 Scene scene = new Scene(fxmlLoader.load(), 800, 450);
