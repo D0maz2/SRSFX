@@ -19,9 +19,6 @@ public class loginScreen extends Application {
         stage.show();           //Must be at the end of the start function
     }
 
-
-
-
     public static void main(String[] args) throws IOException {
         launch();
 

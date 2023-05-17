@@ -17,23 +17,23 @@ public class Main {
         Department[] DA = {d1,d2,d3};
         int[] p1 = {1,3,6};
 
-        Instructor i1 = new Instructor(1010,"omar","21/4/1960","america", "01074858549",DA);
-        Classroom cl1 = new Classroom(1001,"2nd floor",32,50,null,null);
-        Course c1 = new Course("Discrete",100,i1,DA,3,942,cl1,p1,"wed",null,null,"A+");
-        Course c2 = new Course("DS",101,i1,DA,1,940,cl1,p1,null,null,null,"A-");
-        Course c3 = new Course("Algebra",101,i1,DA,1,940,cl1,p1,null,null,null,"B-");
-        Course c4 = new Course("Computer Systems",101,i1,DA,1,940,cl1,p1,null,null,null,"C");
-        Course c5 = new Course("English",101,i1,DA,1,940,cl1,p1,null,null,null,"C+");
-        Course c6 = new Course("Networking",101,i1,DA,1,940,cl1,p1,null,null,null,"D");
-        Course[] CA = {c2,c1,c3,c4,c5,c6};
-
-
-        Student s1 = new Student(101010,"ahmed","21/3/2004","alexandria","01049585839",2022,"Fall",CA,null,d1,3.12,3.0);
-        Student s2 = new Student(102391,"ahmed","21/3/2004","cairo","01049585839",2022,"Fall",CA,null,d1,3.12,3.0);
-        Student s3 = new Student(338920,"mostafa","21/3/2004","alexandria","01049585839",2022,"Fall",CA,null,d1,3.12,3.0);
-        s1.saveData();
-        s2.saveData();
-        s3.saveData();
+       // Instructor i1 = new Instructor(1010,"omar","21/4/1960","america", "01074858549",DA);
+//        Classroom cl1 = new Classroom(1001,"2nd floor",32,50,null,null);
+//        Course c1 = new Course("Discrete",100,i1,DA,3,942,cl1,p1,"wed",null,null,"A+");
+//        Course c2 = new Course("DS",101,i1,DA,1,940,cl1,p1,null,null,null,"A-");
+//        Course c3 = new Course("Algebra",101,i1,DA,1,940,cl1,p1,null,null,null,"B-");
+//        Course c4 = new Course("Computer Systems",101,i1,DA,1,940,cl1,p1,null,null,null,"C");
+//        Course c5 = new Course("English",101,i1,DA,1,940,cl1,p1,null,null,null,"C+");
+//        Course c6 = new Course("Networking",101,i1,DA,1,940,cl1,p1,null,null,null,"D");
+//        Course[] CA = {c2,c1,c3,c4,c5,c6};
+//
+//
+//        Student s1 = new Student(101010,"ahmed","21/3/2004","alexandria","01049585839",2022,"Fall",CA,null,d1,3.12,3.0);
+//        Student s2 = new Student(102391,"ahmed","21/3/2004","cairo","01049585839",2022,"Fall",CA,null,d1,3.12,3.0);
+//        Student s3 = new Student(338920,"mostafa","21/3/2004","alexandria","01049585839",2022,"Fall",CA,null,d1,3.12,3.0);
+//        s1.saveData();
+//        s2.saveData();
+//        s3.saveData();
        //excelsheet("helloworld.xls",students(s1),header);
         // ArrayList<String> arr = loadexcelString("Employee Sample Data.xls","Data");
         //for (int i = 0;i<arr.size();i++){

@@ -175,6 +175,7 @@ public boolean passwordSave(String password,String confPassword) throws IOExcept
         return hashedPassword;
     }
 public void Registerclick(ActionEvent event) throws IOException, NoSuchAlgorithmException {
+    String[] f1 = {"computers and data science","science"};
     if (rdbtnStudent.isSelected()) {
         RadioButton dep = (RadioButton) Dpt.getSelectedToggle();
         Student s1 = new Student(Integer.parseInt(stuId.getText()), stuName.getText(), stuDate.getValue().toString(), stuAddress.getText(), stuNumber.getText(), Integer.parseInt(tfEnrollmentYear.getText()), cboxSemester.getValue().toString(), null, null, DepsSTUDENT(dep.getText()), 0, 0);
@@ -189,32 +190,31 @@ public void Registerclick(ActionEvent event) throws IOException, NoSuchAlgorithm
             stage.setScene(scene);
             stage.show();
         }
-
     }else if (rdbtnInstructor.isSelected()) {
-        ArrayList<String> deps = new ArrayList<>();
+        ArrayList<Department> deps = new ArrayList<>();
         if (rdbtnBI.isSelected()) {
-            deps.add(rdbtnBI.getText());
+            deps.add(new Department(1000,"Business Intelligence",f1));
         }
         if (rdbtnCS.isSelected()) {
-            deps.add(rdbtnCS.getText());
+            deps.add(new Department(1001,"Cyber Security",f1));
         }
         if (rdbtnDS.isSelected()) {
-            deps.add(rdbtnDS.getText());
+            deps.add(new Department(1002,"Data Science",f1));
         }
         if (rdbtnIS.isSelected()) {
-            deps.add(rdbtnIS.getText());
+            deps.add(new Department(1003,"Intelligent Systems",f1));
         }
         if (rdbtnMedia.isSelected()) {
-            deps.add(rdbtnMedia.getText());
+            deps.add(new Department(1004,"Media",f1));
         }
-        Instructor i1 = new Instructor(Integer.parseInt(stuId.getText()), stuName.getText(), stuDate.getValue().toString(), stuAddress.getText(), stuNumber.getText(), null);
+        Instructor i1 = new Instructor(Integer.parseInt(stuId.getText()), stuName.getText(), stuDate.getValue().toString(), stuAddress.getText(), stuNumber.getText(), deps);
         if (passwordSave(passid.getText(), confpassid.getText())) {
             i1.saveData();
             FXMLLoader fxmlLoader = new FXMLLoader(loginScreen.class.getResource("loginScreen.fxml"));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(fxmlLoader.load(), 800, 450);
             stage.setResizable(false);
-            stage.setTitle("SRS Login");
+            stage.setTitle("FCDS Login");
             stage.getIcons().add(new Image(registerController.class.getResourceAsStream("/thumbnail.jpg")));
             stage.setScene(scene);
             stage.show();

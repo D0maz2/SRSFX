@@ -16,6 +16,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -64,7 +65,9 @@ public class HomeController {
             dataload(idlogin, student);
         }else {
             dataloadinstructor(idlogin,student);
+            //loadDeps(idlogin);
         }
+
     }
     public void cancelOnclick(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(loginScreen.class.getResource("loginScreen.fxml"));
@@ -96,10 +99,16 @@ public class HomeController {
         lbPhone.setText(data.get(3));
         lbAddress.setText(data.get(4));
         lbDep.setText(data.get(5));
-        lbCGPA.setText("");
-        lbEY.setText(data.get(0));
-        lbES.setText(data.get(0));
 
+    }
+    public ArrayList<String> loadDeps(String id) throws IOException {
+        ArrayList<String> data = new ArrayList<>();
+        Workbook workbook = new HSSFWorkbook(new FileInputStream("Database_instructors.xls"));
+        Sheet sheet = workbook.getSheet(id);
+        for (int i = 0;i<sheet.getPhysicalNumberOfRows();i++){
+            data.add(sheet.getRow(i).getCell(5).toString());
+        }
+        return data;
     }
     public ArrayList<String> readData(String id,boolean student) throws IOException {
         ArrayList<String> data = new ArrayList<>();
