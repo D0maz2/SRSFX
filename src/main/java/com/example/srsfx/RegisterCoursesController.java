@@ -2,13 +2,21 @@ package com.example.srsfx;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 import mainClasses.Course;
 import mainClasses.Department;
 import mainClasses.Student;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class RegisterCoursesController {
@@ -30,6 +38,8 @@ public class RegisterCoursesController {
     TableColumn tcCredits;
     @FXML
     TableColumn tcSeats;
+    @FXML
+    Button btnCancel;
     ObservableList<String> list = FXCollections.observableArrayList();
     ArrayList<Course> allCourses = new ArrayList<Course>();
     ArrayList<Course> registerableCourses = new ArrayList<Course>();
@@ -61,6 +71,16 @@ public class RegisterCoursesController {
         tcSeats.setSortable(false);
         tcSeats.setResizable(false);
 
+    }
+    public void cancelOnclick (ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(loginScreen.class.getResource("Home.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(fxmlLoader.load(), 800, 450);
+        stage.setResizable(false);
+        stage.setTitle("FCDS Home");
+        stage.getIcons().add(new Image(registerController.class.getResourceAsStream("/thumbnail.jpg")));
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void filterCourses(Student S1){
