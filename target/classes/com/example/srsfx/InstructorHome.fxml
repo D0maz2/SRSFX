@@ -11,7 +11,7 @@
     <children>
     <ImageView fitHeight="450.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
         <image>
-            <Image url="@../../../Pattern1 -COLORS2-.jpg" />
+            <Image url="@../../../Pattern1%20-COLORS2-.jpg" />
         </image>
     </ImageView>
       <AnchorPane layoutX="34.0" layoutY="29.0" prefHeight="392.0" prefWidth="731.0" style="-fx-background-color: F0F0F0; -fx-background-radius: 16px;">
@@ -47,7 +47,7 @@
                   <Font name="Krub SemiBold" size="14.0" />
                </font>
             </Label>
-            <Label layoutX="452.0" layoutY="41.0" text="Date Of Birth:">
+            <Label layoutX="452.0" layoutY="41.0" text="Date IOf Birth:">
                <font>
                   <Font name="Krub SemiBold" size="14.0" />
                </font>

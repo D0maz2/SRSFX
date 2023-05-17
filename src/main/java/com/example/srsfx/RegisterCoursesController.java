@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import mainClasses.Course;
+import mainClasses.Department;
 import mainClasses.Student;
 
 import java.util.ArrayList;
@@ -38,5 +39,17 @@ public class RegisterCoursesController {
             }
         }
 
+        for(Course course: registerableCourses){
+            for(Course Done: S1.getAllRegisteredCourses()){
+                if(course == Done){
+                    registerableCourses.remove(course);
+                }
+                for(Department department: course.getDepartments()){
+                    if(department!=S1.getDepartment()){
+                        registerableCourses.remove(course);
+                    }
+                }
+            }
+        }
     }
 }
