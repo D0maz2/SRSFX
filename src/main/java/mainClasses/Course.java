@@ -38,7 +38,7 @@ public class Course {
         this.prerequisites = prerequisites;
         this.textbooks = textbooks;
         this.grade = grade;
-        courses.add(this)
+        courses.add(this);
     }
     public String getName()
     {
