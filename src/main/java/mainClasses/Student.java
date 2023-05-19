@@ -192,7 +192,40 @@ public class Student extends Person{
     }
 
     public static void loadStudents(){
-        //Abdelrahman to implement loading all students in data base as objects
+       Workbook workbook = new HSSFWorkbook(new FileInputStream("Database.xls"));
+        for (int x = 0;x<workbook.getNumberOfSheets();x++) {
+            ArrayList<String> courseNames = new ArrayList<>();
+            ArrayList<Course> finalCourses = new ArrayList<>();
+            Sheet sheet = workbook.getSheet(workbook.getSheetAt(x).getSheetName());
+            String d1 = sheet.getRow(1).getCell(5).toString();
+            for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
+                courseNames.add(sheet.getRow(i).getCell(10).toString());
+            }
+
+            for (int i = 0; i < courseNames.size(); i++) {
+                for (int j = 0; j < Course.getCourses().size(); j++) {
+                    if (Objects.equals(courseNames.get(i), Course.getCourses().get(j).getName())) {
+                        finalCourses.add(Course.getCourses().get(j));
+                    }
+                }
+            }
+            Department department = null;
+            for (int i = 0; i < Department.getDeps().size(); i++) {
+                if (Objects.equals(d1, Department.getDeps().get(i).getName())) {
+                    department = Department.getDeps().get(i);
+                }
+            }
+            String name = sheet.getRow(1).getCell(0).toString();
+            int ID = (int) sheet.getRow(1).getCell(1).getNumericCellValue();
+            String date = sheet.getRow(1).getCell(2).toString();
+            String phone = sheet.getRow(1).getCell(3).toString();
+            String address = sheet.getRow(1).getCell(4).toString();
+            Double GPA = sheet.getRow(1).getCell(6).getNumericCellValue();
+            Double CGPA = sheet.getRow(1).getCell(7).getNumericCellValue();
+            int EY = (int) sheet.getRow(1).getCell(8).getNumericCellValue();
+            String ES = sheet.getRow(1).getCell(9).toString();
+            Student s1 = new Student(ID, name, date, address, phone, EY, ES, finalCourses, null, department, GPA, CGPA);
+        }
     }
 
     @Override
