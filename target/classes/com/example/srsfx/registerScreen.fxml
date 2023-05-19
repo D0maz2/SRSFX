@@ -109,22 +109,6 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label fx:id="passerror" layoutX="471.0" layoutY="170.0">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label fx:id="starname" layoutX="59.0" layoutY="84.0" />
-            <Label fx:id="starid" layoutX="36.0" layoutY="125.0" />
-            <Label fx:id="staraddress" layoutX="75.0" layoutY="175.0" />
-            <Label fx:id="starnumber" layoutX="139.0" layoutY="220.0" />
-            <Label fx:id="starbirth" layoutX="96.0" layoutY="265.0" />
-            <Label fx:id="stardep" layoutX="90.0" layoutY="322.0" />
-            <Label fx:id="starprof" layoutX="157.0" layoutY="34.0" />
-            <Label fx:id="staryear" layoutX="497.0" layoutY="75.0" />
-            <Label fx:id="starsemester" layoutX="526.0" layoutY="112.0" />
-            <Label fx:id="starpass" layoutX="468.0" layoutY="220.0" />
-            <Label fx:id="starconfpass" layoutX="523.0" layoutY="262.0" />
          </children>
       </AnchorPane>
     </children>
