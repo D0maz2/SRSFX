@@ -75,7 +75,7 @@
             <Label fx:id="lbES" alignment="CENTER" layoutX="607.0" layoutY="148.0" prefHeight="18.0" prefWidth="119.0" text="Label" />
             <Label fx:id="lbDOB" alignment="CENTER" layoutX="611.0" layoutY="77.0" prefHeight="18.0" prefWidth="111.0" text="Label" />
             <Label fx:id="lbID" alignment="CENTER" layoutX="611.0" layoutY="40.0" prefHeight="18.0" prefWidth="111.0" text="Label" />
-            <Button layoutX="61.0" layoutY="253.0" mnemonicParsing="false" text="Button" />
+            <Button fx:id="btnRegisterCourse" layoutX="61.0" layoutY="253.0" mnemonicParsing="false" onAction="#registerCoursebtn" text="Register Course" />
             <Button layoutX="196.0" layoutY="253.0" mnemonicParsing="false" text="Button" />
             <Button layoutX="335.0" layoutY="253.0" mnemonicParsing="false" text="Button" />
          </children>

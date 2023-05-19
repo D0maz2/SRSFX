@@ -56,7 +56,7 @@ public class RegisterCoursesController {
 
 
 
-        allStudents.add();
+        //allStudents.add();
 
         filterCourses(mainClasses.allStudents.getStudentByID(studentID));
         ls.getItems().addAll(registerableCourses);
