@@ -18,6 +18,11 @@ public class Course {
     private ArrayList<String> textbooks;
     private String grade;
     private ArrayList<Student> students;
+    private static ArrayList<Course> courses = new ArrayList<>();
+
+    public static ArrayList<Course> getCourses() {
+        return courses;
+    }
 
     public Course(String name, int courseNumber, Instructor instructor, ArrayList<Department> departments, int term, int credits, Classroom classroom, int[] periods, String dayOfTheWeek, ArrayList<Course> prerequisites, ArrayList<String> textbooks, String grade)
     {
@@ -33,6 +38,7 @@ public class Course {
         this.prerequisites = prerequisites;
         this.textbooks = textbooks;
         this.grade = grade;
+        courses.add(this)
     }
     public String getName()
     {
