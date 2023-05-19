@@ -13,12 +13,18 @@ import java.util.Arrays;
 
 public class Instructor extends Person{
     private ArrayList<Department> departments;
+     public static ArrayList<Instructor> getInstructors() {
+        return instructors;
+    }
+
+    private static ArrayList<Instructor> instructors = new ArrayList<>();
 
 
     public Instructor(int ID, String name, String dateOfBirth, String address, String telephoneNumber, ArrayList<Department> departments)
     {
         super(ID, name, dateOfBirth, address, telephoneNumber);
         this.departments = departments;
+        instructors.add(this);
     }
     public ArrayList<Department> getDepartments()
     {
