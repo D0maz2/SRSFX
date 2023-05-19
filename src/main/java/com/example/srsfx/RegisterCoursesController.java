@@ -7,11 +7,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import mainClasses.*;
 
 import java.io.IOException;
@@ -36,8 +35,6 @@ public class RegisterCoursesController {
     ObservableList<String> list = FXCollections.observableArrayList();
     ArrayList<Course> allCourses = new ArrayList<Course>();
     ArrayList<Course> registerableCourses = new ArrayList<Course>();
-    allStudents allStudents = new allStudents();
-
     public void initialize(){
         list.add("First");
         list.add("Second");
@@ -49,15 +46,39 @@ public class RegisterCoursesController {
         list.add("Eighth");
         cboxTerm.setItems(list);
 
+        filterCourses(mainClasses.Student.getStudentByID(studentID));
+        ObservableList<Course> observableList = FXCollections.observableList(registerableCourses);
+        ls.setItems(observableList);
 
-        String[] csFaculties = {"John Smith", "Jane Doe"};
-        Department csDepartment = new Department(1001, "Computer Science", csFaculties);
-        Student johnDoe = new Student(1001, "John Doe", "1999-01-01", "123 Main St", "555-1234", 2022, "Fall", new ArrayList<Course>(), new ArrayList<Course>(), csDepartment, 3.4, 3.5);
-        
-        allStudents.add();
+        //Test if this works first
+        ls.setCellFactory(new Callback<ListView<Course>, ListCell<Course>>() {
+            @Override
+            public ListCell<Course> call(ListView<Course> param) {
+                return new ListCell<Course>() {
+                    @Override
+                    protected void updateItem(Course item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (item != null) {
+                            setText(item.getName() + " " + item.getCourseNumber() + " " + item.getDayOfTheWeek() + " " + item.getPeriods() + " " + item.getClassroom() + " " + item.getCredits() + " " + item.getClassroom().getCurrentCapacity());
+                        } else {
+                            setText(null);
+                        }
+                    }
+                };
+            }
+        });
 
-        filterCourses(mainClasses.allStudents.getStudentByID(studentID));
-        ls.getItems().addAll(registerableCourses);
+        ls.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 1) {
+                mainClasses.Course selectedItem = (Course) ls.getSelectionModel().getSelectedItem();
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to Register " + selectedItem.getName() + "?", ButtonType.YES, ButtonType.NO);
+                alert.showAndWait();
+
+                if (alert.getResult() == ButtonType.YES) {
+                    System.out.println("Course Registered: " + selectedItem.getName());
+                }
+            }
+        });
     }
     public void cancelOnclick (ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(loginScreen.class.getResource("Home.fxml"));

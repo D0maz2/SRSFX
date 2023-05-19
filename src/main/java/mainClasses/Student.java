@@ -18,6 +18,7 @@ public class Student extends Person{
     private Department department;
     private double GPA;
     private double CGPA;
+    private static ArrayList<Student> allStudents = new ArrayList<Student>();
 
 
     public Student(int ID, String name, String dateOfBirth, String address, String telephoneNumber, int enrolledYear, String enrolledSemester, ArrayList<Course> allRegisteredCourses, ArrayList<Course> currentRegisteredCourses, Department department, double GPA, double CGPA)
@@ -30,6 +31,7 @@ public class Student extends Person{
         this.department = department;
         this.GPA = GPA;
         this.CGPA = CGPA;
+        allStudents.add(this);
     }
     public void registerCourse(Course courseName)       //adds the newly registered course to both Current and allRegisteredCourses
     {
@@ -59,9 +61,7 @@ public class Student extends Person{
         return allRegisteredCourses;
     }
     public void setAllRegisteredCourses(ArrayList<Course> allRegisteredCourses)
-    {
-        this.allRegisteredCourses = allRegisteredCourses;
-    }
+    {this.allRegisteredCourses = allRegisteredCourses;}
     public ArrayList<Course> getCurrentRegisteredCourses()
     {
         return currentRegisteredCourses;
@@ -94,7 +94,14 @@ public class Student extends Person{
     {
         this.CGPA = CGPA;
     }
-//    public boolean arePrerequisitesMet(Course courseName)
+    public static ArrayList<Student> getAllStudents() {
+        return allStudents;
+    }
+    public static void setAllStudents(ArrayList<Student> allStudents) {
+        Student.allStudents = allStudents;
+    }
+
+    //    public boolean arePrerequisitesMet(Course courseName)
 //    {
 //        boolean y = false;
 //        int count = 0;
@@ -175,7 +182,18 @@ public class Student extends Person{
         //loadCourse();
 
     }
+    public static Student getStudentByID(String ID){
+        for(Student student: allStudents){
+            if(Integer.toString(student.getID()).equals(ID)){
+                return  student;
+            }
+        }
+        return null;
+    }
 
+    public static void loadStudents(){
+        //Abdelrahman to implement loading all students in data base as objects
+    }
 
     @Override
     public String toString() {
