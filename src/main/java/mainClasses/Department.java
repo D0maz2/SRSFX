@@ -6,6 +6,11 @@ public class Department {
     private int ID;
     private String name;
     private String[] faculties;
+    private static ArrayList<Department> deps = new ArrayList<>();
+
+    public static ArrayList<Department> getDeps() {
+        return deps;
+    }
 
 
     public Department(int ID, String name, String[] faculties)
