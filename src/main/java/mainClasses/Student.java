@@ -18,12 +18,7 @@ public class Student extends Person{
     private Department department;
     private double GPA;
     private double CGPA;
-    private static ArrayList<Student> students = new ArrayList<Student>();
-    public static ArrayList<Student> getStudents() {
-        return students;
-    }
-
-
+    private static ArrayList<Student> allStudents = new ArrayList<Student>();
     public Student(int ID, String name, String dateOfBirth, String address, String telephoneNumber, int enrolledYear, String enrolledSemester, ArrayList<Course> allRegisteredCourses, ArrayList<Course> currentRegisteredCourses, Department department, double GPA, double CGPA)
     {
         super(ID, name, dateOfBirth, address, telephoneNumber);
@@ -34,7 +29,7 @@ public class Student extends Person{
         this.department = department;
         this.GPA = GPA;
         this.CGPA = CGPA;
-        students.add(this);
+        allStudents.add(this);
     }
     public void registerCourse(Course courseName)       //adds the newly registered course to both Current and allRegisteredCourses
     {
@@ -194,17 +189,22 @@ public class Student extends Person{
         return null;
     }
 
-    public static void loadStudents(){
-       Workbook workbook = new HSSFWorkbook(new FileInputStream("Database.xls"));
+    public static void loadStudents() throws IOException {
+        Workbook workbook = new HSSFWorkbook(new FileInputStream("Database.xls"));
         for (int x = 0;x<workbook.getNumberOfSheets();x++) {
             ArrayList<String> courseNames = new ArrayList<>();
             ArrayList<Course> finalCourses = new ArrayList<>();
             Sheet sheet = workbook.getSheet(workbook.getSheetAt(x).getSheetName());
-            String d1 = sheet.getRow(1).getCell(5).toString();
+
+            // Get the course names from the sheet
             for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
-                courseNames.add(sheet.getRow(i).getCell(10).toString());
+                Cell cell = sheet.getRow(i).getCell(10);
+                if (cell != null) {
+                    courseNames.add(cell.toString());
+                }
             }
 
+            // Match course names with existing courses
             for (int i = 0; i < courseNames.size(); i++) {
                 for (int j = 0; j < Course.getCourses().size(); j++) {
                     if (Objects.equals(courseNames.get(i), Course.getCourses().get(j).getName())) {
@@ -212,23 +212,44 @@ public class Student extends Person{
                     }
                 }
             }
+
+            // Get the department
+            String d1 = getCellValue(sheet.getRow(1).getCell(5));
             Department department = null;
             for (int i = 0; i < Department.getDeps().size(); i++) {
                 if (Objects.equals(d1, Department.getDeps().get(i).getName())) {
                     department = Department.getDeps().get(i);
                 }
             }
-            String name = sheet.getRow(1).getCell(0).toString();
+
+            // Get the student information
+            String name = getCellValue(sheet.getRow(1).getCell(0));
             int ID = (int) sheet.getRow(1).getCell(1).getNumericCellValue();
-            String date = sheet.getRow(1).getCell(2).toString();
-            String phone = sheet.getRow(1).getCell(3).toString();
-            String address = sheet.getRow(1).getCell(4).toString();
+            String date = getCellValue(sheet.getRow(1).getCell(2));
+            String phone = getCellValue(sheet.getRow(1).getCell(3));
+            String address = getCellValue(sheet.getRow(1).getCell(4));
             Double GPA = sheet.getRow(1).getCell(6).getNumericCellValue();
             Double CGPA = sheet.getRow(1).getCell(7).getNumericCellValue();
             int EY = (int) sheet.getRow(1).getCell(8).getNumericCellValue();
-            String ES = sheet.getRow(1).getCell(9).toString();
-            Student s1 = new Student(ID, name, date, address, phone, EY, ES, finalCourses, null, department, GPA, CGPA);
+            String ES = getCellValue(sheet.getRow(1).getCell(9));
+
+            // Create the student and add it to the system
+            new Student(ID, name, date, address, phone, EY, ES, finalCourses, null, department, GPA, CGPA);
         }
+    }
+
+    private static String getCellValue(Cell cell) {
+        if (cell != null) {
+            switch (cell.getCellType()) {
+                case Cell.CELL_TYPE_NUMERIC:
+                    return String.valueOf(cell.getNumericCellValue());
+                case Cell.CELL_TYPE_STRING:
+                    return cell.getStringCellValue();
+                default:
+                    return "";
+            }
+        }
+        return "";
     }
 
     @Override

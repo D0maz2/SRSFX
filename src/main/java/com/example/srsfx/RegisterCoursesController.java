@@ -33,7 +33,6 @@ public class RegisterCoursesController {
     @FXML
     ListView ls;
     ObservableList<String> list = FXCollections.observableArrayList();
-    ArrayList<Course> allCourses = new ArrayList<Course>();
     ArrayList<Course> registerableCourses = new ArrayList<Course>();
     public void initialize(){
         list.add("First");
@@ -95,7 +94,7 @@ public class RegisterCoursesController {
     }
 
     public void filterCourses(Student S1){
-        for(Course course: allCourses){
+        for(Course course: mainClasses.Course.getCourses()){
             if(course.getPrerequisites()==null){
                 registerableCourses.add(course);
             } else{
