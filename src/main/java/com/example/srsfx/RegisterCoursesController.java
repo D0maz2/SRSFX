@@ -48,14 +48,6 @@ public class RegisterCoursesController {
         list.add("Eighth");
         cboxTerm.setItems(list);
 
-
-        String[] csFaculties = {"John Smith", "Jane Doe"};
-        Department csDepartment = new Department(1001, "Computer Science", csFaculties);
-        Student johnDoe = new Student(1001, "John Doe", "1999-01-01", "123 Main St", "555-1234", 2022, "Fall", new ArrayList<Course>(), new ArrayList<Course>(), csDepartment, 3.4, 3.5);
-
-
-
-
         //allStudents.add();
 
         filterCourses(mainClasses.allStudents.getStudentByID(studentID));
