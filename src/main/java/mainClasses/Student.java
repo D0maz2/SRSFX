@@ -18,7 +18,10 @@ public class Student extends Person{
     private Department department;
     private double GPA;
     private double CGPA;
-    private static ArrayList<Student> allStudents = new ArrayList<Student>();
+    private static ArrayList<Student> students = new ArrayList<Student>();
+    public static ArrayList<Student> getStudents() {
+        return students;
+    }
 
 
     public Student(int ID, String name, String dateOfBirth, String address, String telephoneNumber, int enrolledYear, String enrolledSemester, ArrayList<Course> allRegisteredCourses, ArrayList<Course> currentRegisteredCourses, Department department, double GPA, double CGPA)
@@ -31,7 +34,7 @@ public class Student extends Person{
         this.department = department;
         this.GPA = GPA;
         this.CGPA = CGPA;
-        allStudents.add(this);
+        students.add(this);
     }
     public void registerCourse(Course courseName)       //adds the newly registered course to both Current and allRegisteredCourses
     {
