@@ -18,6 +18,7 @@ public class Department {
         this.ID = ID;
         this.name = name;
         this.faculties = faculties;
+        deps.add(this);
     }
     public int getID()
     {
