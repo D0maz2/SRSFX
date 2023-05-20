@@ -11,6 +11,7 @@ public class loginScreen extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         mainClasses.Student.loadStudents();
+        mainClasses.Course.loadCourses();
         FXMLLoader fxmlLoader = new FXMLLoader(loginScreen.class.getResource("loginScreen.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 800, 450);
         stage.setResizable(false);

@@ -45,9 +45,18 @@ public class RegisterCoursesController {
         list.add("Eighth");
         cboxTerm.setItems(list);
 
-        filterCourses(mainClasses.Student.getStudentByID(studentID));
-        ObservableList<Course> observableList = FXCollections.observableList(registerableCourses);
-        ls.setItems(observableList);
+        cboxTerm.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            //With every change in the combobox the filterCourses will be called again and the removed courses will be back fixing the comment in line 57
+            filterCourses(Student.getStudentByID(studentID));
+            ObservableList<Course> observableList = FXCollections.observableList(registerableCourses);
+            ls.setItems(observableList);
+
+            int selectedIndex = cboxTerm.getSelectionModel().getSelectedIndex();
+            for(Course course: observableList)
+                if((selectedIndex+1)!=course.getTerm()){
+                    observableList.remove(course);       //course will be removed I need to get it back
+                }
+        });
 
         //Test if this works first
         ls.setCellFactory(new Callback<ListView<Course>, ListCell<Course>>() {
@@ -69,7 +78,7 @@ public class RegisterCoursesController {
 
         ls.setOnMouseClicked(event -> {
             if (event.getClickCount() == 1) {
-                mainClasses.Course selectedItem = (Course) ls.getSelectionModel().getSelectedItem();
+                Course selectedItem = (Course) ls.getSelectionModel().getSelectedItem();
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to Register " + selectedItem.getName() + "?", ButtonType.YES, ButtonType.NO);
                 alert.showAndWait();
 

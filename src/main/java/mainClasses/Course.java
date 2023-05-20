@@ -138,6 +138,11 @@ public class Course {
     }
     public ArrayList<Student> getStudents() {return students;}
     public void setStudents(ArrayList<Student> students) {this.students = students;}
+
+    public static void loadCourses(){
+
+    }
+
     @Override
     public String toString()
     {
