@@ -11,12 +11,6 @@ import java.util.Arrays;
 
 public class Instructor extends Person implements Serializable {
     private ArrayList<Department> departments;
-     public static ArrayList<Instructor> getInstructors() {
-        return instructors;
-    }
-
-    private static ArrayList<Instructor> instructors = new ArrayList<>();
-
     public static ArrayList<Instructor> getInstructors() {
         return instructors;
     }
