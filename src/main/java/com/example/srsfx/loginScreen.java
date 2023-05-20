@@ -5,13 +5,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import mainClasses.Student;
+
 import java.io.IOException;
 
 public class loginScreen extends Application {
     @Override
-    public void start(Stage stage) throws IOException {
-        mainClasses.Student.loadStudents();
-        mainClasses.Course.loadCourses();
+    public void start(Stage stage) throws IOException, ClassNotFoundException {
+        Student.loadStudents();
         FXMLLoader fxmlLoader = new FXMLLoader(loginScreen.class.getResource("loginScreen.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 800, 450);
         stage.setResizable(false);

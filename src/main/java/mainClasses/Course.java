@@ -1,14 +1,21 @@
 package mainClasses;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Course {
+public class Course implements Serializable {
 
     private String name;
     private int courseNumber;
     private Instructor instructor;
     private ArrayList<Department> departments;
+    private static ArrayList<Course> courses = new ArrayList<>();
+
+    public static ArrayList<Course> getCourses() {
+        return courses;
+    }
+
     private int term;
     private int credits;
     private Classroom classroom;
@@ -17,12 +24,7 @@ public class Course {
     private ArrayList<Course> prerequisites;
     private ArrayList<String> textbooks;
     private String grade;
-    private ArrayList<Student> students;
-    private static ArrayList<Course> courses = new ArrayList<>();
 
-    public static ArrayList<Course> getCourses() {
-        return courses;
-    }
 
     public Course(String name, int courseNumber, Instructor instructor, ArrayList<Department> departments, int term, int credits, Classroom classroom, int[] periods, String dayOfTheWeek, ArrayList<Course> prerequisites, ArrayList<String> textbooks, String grade)
     {
@@ -136,13 +138,6 @@ public class Course {
     {
         this.grade = grade;
     }
-    public ArrayList<Student> getStudents() {return students;}
-    public void setStudents(ArrayList<Student> students) {this.students = students;}
-
-    public static void loadCourses(){
-
-    }
-
     @Override
     public String toString()
     {
@@ -155,18 +150,18 @@ public class Course {
                 ", credits=" + credits +
                 ", classroom=" + classroom +
                 ", periods=" + Arrays.toString(periods) +
-                ", dayOfTheWeek='" + dayOfTheWeek + '\'' +
-                ", prerequisites=" + prerequisites.toString() +
-                ", textbooks=" + textbooks.toString() +
+                //", dayOfTheWeek='" + dayOfTheWeek + '\'' +
+                //", prerequisites=" + prerequisites.toString() +
+                //", textbooks=" + textbooks.toString() +
                 ", grade='" + grade + '\'' +
                 '}';
     }
-    public static boolean contains(Student Student,ArrayList<Course> Courses){
+    public boolean contains(ArrayList<Course> Courses){
         boolean flag = false;
-        int count = Courses.size();
-        for(Course studentCourses: Student.getAllRegisteredCourses()){
+        int count = this.getPrerequisites().size();
+        for(Course pre: this.getPrerequisites()){
             for(Course course: Courses){
-                if(studentCourses == course){
+                if(pre == course){
                     count--;
                 }
             }

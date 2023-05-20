@@ -2,41 +2,47 @@ package mainClasses;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+
+import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Objects;
 
-public class Student extends Person{
+public class Student extends Person implements Serializable {
     private int enrolledYear;
     private String enrolledSemester;
+
+    public static ArrayList<Student> getStudents() {
+        return students;
+    }
+
+    public static void setStudents(ArrayList<Student> students) {
+        Student.students = students;
+    }
+
+    private static ArrayList<Student> students = new ArrayList<>();
     private ArrayList<Course> allRegisteredCourses;
-    private ArrayList<Course> currentRegisteredCourses;
     private Department department;
     private double GPA;
     private double CGPA;
-    private static ArrayList<Student> allStudents = new ArrayList<Student>();
-    public Student(int ID, String name, String dateOfBirth, String address, String telephoneNumber, int enrolledYear, String enrolledSemester, ArrayList<Course> allRegisteredCourses, ArrayList<Course> currentRegisteredCourses, Department department, double GPA, double CGPA)
+
+
+    public Student(int ID, String name, String dateOfBirth, String address, String telephoneNumber, int enrolledYear, String enrolledSemester, ArrayList<Course> allRegisteredCourses, Department department, double GPA, double CGPA)
     {
         super(ID, name, dateOfBirth, address, telephoneNumber);
         this.enrolledYear = enrolledYear;
         this.enrolledSemester = enrolledSemester;
         this.allRegisteredCourses = allRegisteredCourses;
-        this.currentRegisteredCourses = currentRegisteredCourses;
         this.department = department;
         this.GPA = GPA;
         this.CGPA = CGPA;
-        allStudents.add(this);
+        students.add(this);
     }
+
     public void registerCourse(Course courseName)       //adds the newly registered course to both Current and allRegisteredCourses
     {
-       // if(arePrerequisitesMet(courseName)){
-            courseName.getStudents().add(this);
-            courseName.getClassroom().setCurrentCapacity((courseName.getClassroom().getCurrentCapacity())+1);
-       // }
+        if(arePrerequisitesMet(courseName)){
+
+        }
     }
     public int getEnrolledYear()
     {
@@ -59,15 +65,11 @@ public class Student extends Person{
         return allRegisteredCourses;
     }
     public void setAllRegisteredCourses(ArrayList<Course> allRegisteredCourses)
-    {this.allRegisteredCourses = allRegisteredCourses;}
-    public ArrayList<Course> getCurrentRegisteredCourses()
     {
-        return currentRegisteredCourses;
+        this.allRegisteredCourses = allRegisteredCourses;
     }
-    public void setCurrentRegisteredCourses(ArrayList<Course> currentRegisteredCourses)
-    {
-        this.currentRegisteredCourses = currentRegisteredCourses;
-    }
+
+
     public Department getDepartment()
     {
         return department;
@@ -92,49 +94,46 @@ public class Student extends Person{
     {
         this.CGPA = CGPA;
     }
-    public static ArrayList<Student> getAllStudents() {
-        return allStudents;
+    public boolean arePrerequisitesMet(Course courseName)
+    {
+        boolean y = false;
+        int count = 0;
+        for(Course prerequisite : courseName.getPrerequisites()){
+            for(Course course : allRegisteredCourses){
+                if(course==prerequisite){
+                    count++;
+                }
+            }
+        }
+        if (count==courseName.getPrerequisites().size()){
+            y = true;
+        }
+        return y;
     }
-    public static void setAllStudents(ArrayList<Student> allStudents) {
-        Student.allStudents = allStudents;
-    }
-
-    //    public boolean arePrerequisitesMet(Course courseName)
-//    {
-//        boolean y = false;
-//        int count = 0;
-//        for(Course prerequisite : courseName.getPrerequisites()){
-//            for(Course course : allRegisteredCourses){
-//                if(course==prerequisite){
-//                    count++;
-//                }
-//            }
-//        }
-//        if (count==courseName.getPrerequisites().size()){
-//            y = true;
-//        }
-//        return y;
-//    }
     public void getTranscript(){
 
     }
 
-    public void loadCourse() throws IOException {
+    public void LoadExcelCourse() throws IOException {
         Workbook workbook = new HSSFWorkbook(new FileInputStream("Database.xls"));
         Sheet sheet = workbook.getSheet(""+getID());
-        System.out.println(getAllRegisteredCourses().size());
-        Row row;
-        for (int i = 0;i<getAllRegisteredCourses().size();i++){
-            if(sheet.getRow(i+1) == null) {row = sheet.createRow(i+1);}
+        if(allRegisteredCourses != null) {
+            System.out.println(getAllRegisteredCourses().size());
+            Row row;
+            for (int i = 0; i < getAllRegisteredCourses().size(); i++) {
+                if (sheet.getRow(i + 1) == null) {
+                    row = sheet.createRow(i + 1);
+                } else {
+                    row = sheet.getRow(i + 1);
+                }
 
-            else {row = sheet.getRow(i+1);}
+                row.createCell(10).setCellValue(getAllRegisteredCourses().get(i).getName());
+                row.createCell(11).setCellValue(getAllRegisteredCourses().get(i).getCredits());
+                row.createCell(12).setCellValue(getAllRegisteredCourses().get(i).getGrade());
 
-            row.createCell(10).setCellValue(getAllRegisteredCourses().get(i).getName());
-            row.createCell(11).setCellValue(getAllRegisteredCourses().get(i).getCredits());
-            row.createCell(12).setCellValue(getAllRegisteredCourses().get(i).getGrade());
-
-            for (int z = 0; z < row.getLastCellNum(); z++) {
-                sheet.autoSizeColumn(z);
+                for (int z = 0; z < row.getLastCellNum(); z++) {
+                    sheet.autoSizeColumn(z);
+                }
             }
         }
         FileOutputStream fos = new FileOutputStream("Database.xls");
@@ -143,7 +142,7 @@ public class Student extends Person{
         System.out.println("Data saved: " + "Database.xls");
     }
 
-    public void saveData() throws IOException {
+    public void SaveExcelData() throws IOException {
         String[] header = {"Name","ID","Date of Birth","Telephone Number","Address","Department","GPA","CGPA","Enrolment Year","Enrolment Semester","Courses","Credits","Grade"};
         Workbook workbook = new HSSFWorkbook(new FileInputStream("Database.xls"));
         Sheet sheet;
@@ -177,11 +176,40 @@ public class Student extends Person{
         workbook.write(fos);
         fos.close();
         System.out.println("Data saved: " + "Database.xls");
-        //loadCourse();
+        LoadExcelCourse();
 
     }
+    public static void loadStudents() throws IOException, ClassNotFoundException {
+        ArrayList<Student> s1 = null;
+        FileInputStream fileIn = new FileInputStream("Students.ser");
+        ObjectInputStream in = new ObjectInputStream(fileIn);
+        s1 = (ArrayList<Student>) in.readObject();
+        in.close();
+        fileIn.close();
+        if (s1 != null) {
+            System.out.println("Loaded successfully !");;
+        }
+        for(int i = 0; i< Objects.requireNonNull(s1).size(); i++){
+            Student.getStudents().add(s1.get(i));
+        }
+    }
+    public static void saveStudents(){
+        ArrayList<Student> s2 = Student.getStudents();
+
+        try {
+            FileOutputStream fileOut = new FileOutputStream("Students.ser");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(s2);
+            out.close();
+            fileOut.close();
+            System.out.println("Saved to Students.ser");
+        } catch (IOException e) {
+            System.out.println("Error While serializing");
+            e.printStackTrace();
+        }
+    }
     public static Student getStudentByID(String ID){
-        for(Student student: allStudents){
+        for(Student student: Student.getStudents()){
             if(Integer.toString(student.getID()).equals(ID)){
                 return  student;
             }
@@ -189,84 +217,22 @@ public class Student extends Person{
         return null;
     }
 
-    public static void loadStudents() throws IOException {
-        Workbook workbook = new HSSFWorkbook(new FileInputStream("Database.xls"));
-        for (int x = 0;x<workbook.getNumberOfSheets();x++) {
-            ArrayList<String> courseNames = new ArrayList<>();
-            ArrayList<Course> finalCourses = new ArrayList<>();
-            Sheet sheet = workbook.getSheet(workbook.getSheetAt(x).getSheetName());
 
-            // Get the course names from the sheet
-            for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
-                Cell cell = sheet.getRow(i).getCell(10);
-                if (cell != null) {
-                    courseNames.add(cell.toString());
-                }
-            }
-
-            // Match course names with existing courses
-            for (int i = 0; i < courseNames.size(); i++) {
-                for (int j = 0; j < Course.getCourses().size(); j++) {
-                    if (Objects.equals(courseNames.get(i), Course.getCourses().get(j).getName())) {
-                        finalCourses.add(Course.getCourses().get(j));
-                    }
-                }
-            }
-
-            // Get the department
-            String d1 = getCellValue(sheet.getRow(1).getCell(5));
-            Department department = null;
-            for (int i = 0; i < Department.getDeps().size(); i++) {
-                if (Objects.equals(d1, Department.getDeps().get(i).getName())) {
-                    department = Department.getDeps().get(i);
-                }
-            }
-
-            // Get the student information
-            String name = getCellValue(sheet.getRow(1).getCell(0));
-            int ID = (int) sheet.getRow(1).getCell(1).getNumericCellValue();
-            String date = getCellValue(sheet.getRow(1).getCell(2));
-            String phone = getCellValue(sheet.getRow(1).getCell(3));
-            String address = getCellValue(sheet.getRow(1).getCell(4));
-            Double GPA = sheet.getRow(1).getCell(6).getNumericCellValue();
-            Double CGPA = sheet.getRow(1).getCell(7).getNumericCellValue();
-            int EY = (int) sheet.getRow(1).getCell(8).getNumericCellValue();
-            String ES = getCellValue(sheet.getRow(1).getCell(9));
-
-            // Create the student and add it to the system
-            new Student(ID, name, date, address, phone, EY, ES, finalCourses, null, department, GPA, CGPA);
-        }
-    }
-
-    private static String getCellValue(Cell cell) {
-        if (cell != null) {
-            switch (cell.getCellType()) {
-                case Cell.CELL_TYPE_NUMERIC:
-                    return String.valueOf(cell.getNumericCellValue());
-                case Cell.CELL_TYPE_STRING:
-                    return cell.getStringCellValue();
-                default:
-                    return "";
-            }
-        }
-        return "";
-    }
 
     @Override
     public String toString() {
         return "Student{" +
                 ", ID=" + ID +
-                ", name='" + name + '\'' +
-                ", dateOfBirth='" + dateOfBirth + '\'' +
-                ", address='" + address + '\'' +
-                ", telephoneNumber='" + telephoneNumber + '\'' +
-                "enrolledYear=" + enrolledYear +
-                ", enrolledSemester='" + enrolledSemester + '\'' +
-                ", allRegisteredCourses=" + allRegisteredCourses.toString() +
-                ", currentRegisteredCourses=" + currentRegisteredCourses.toString() +
-                ", department=" + department +
-                ", GPA=" + GPA +
-                ", CGPA=" + CGPA +
+                ",\n name='" + name + '\'' +
+                ",\n dateOfBirth='" + dateOfBirth + '\'' +
+                ",\n address='" + address + '\'' +
+                ",\n telephoneNumber='" + telephoneNumber + '\'' +
+                "\n enrolledYear=" + enrolledYear +
+                ",\n enrolledSemester='" + enrolledSemester + '\'' +
+                ",\n allRegisteredCourses=" + allRegisteredCourses +
+                ",\n department=" + department.getName() +
+                ",\n GPA=" + GPA +
+                ",\n CGPA=" + CGPA +
                 '}';
     }
 }
