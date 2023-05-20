@@ -114,7 +114,7 @@ public class Student extends Person implements Serializable {
 
     }
 
-    public void loadCourse() throws IOException {
+    public void LoadExcelCourse() throws IOException {
         Workbook workbook = new HSSFWorkbook(new FileInputStream("Database.xls"));
         Sheet sheet = workbook.getSheet(""+getID());
         if(allRegisteredCourses != null) {
@@ -142,7 +142,7 @@ public class Student extends Person implements Serializable {
         System.out.println("Data saved: " + "Database.xls");
     }
 
-    public void saveData() throws IOException {
+    public void SaveExcelData() throws IOException {
         String[] header = {"Name","ID","Date of Birth","Telephone Number","Address","Department","GPA","CGPA","Enrolment Year","Enrolment Semester","Courses","Credits","Grade"};
         Workbook workbook = new HSSFWorkbook(new FileInputStream("Database.xls"));
         Sheet sheet;
@@ -176,7 +176,7 @@ public class Student extends Person implements Serializable {
         workbook.write(fos);
         fos.close();
         System.out.println("Data saved: " + "Database.xls");
-        loadCourse();
+        LoadExcelCourse();
 
     }
     public static void loadStudents() throws IOException, ClassNotFoundException {

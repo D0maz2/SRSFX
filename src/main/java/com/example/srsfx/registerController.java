@@ -180,7 +180,7 @@ public void Registerclick(ActionEvent event) throws IOException, NoSuchAlgorithm
         RadioButton dep = (RadioButton) Dpt.getSelectedToggle();
         Student s1 = new Student(Integer.parseInt(stuId.getText()), stuName.getText(), stuDate.getValue().toString(), stuAddress.getText(), stuNumber.getText(), Integer.parseInt(tfEnrollmentYear.getText()), cboxSemester.getValue().toString(), null, DepsSTUDENT(dep.getText()), 0, 0);
         if (passwordSave(passid.getText(), confpassid.getText())) {
-            s1.saveData();
+            s1.SaveExcelData();
             Student.saveStudents();
             for(int i =0;i<Student.getStudents().size();i++) {
                 System.out.println(Student.getStudents().get(i).getID());
