@@ -174,13 +174,17 @@ public boolean passwordSave(String password,String confPassword) throws IOExcept
 
         return hashedPassword;
     }
-public void Registerclick(ActionEvent event) throws IOException, NoSuchAlgorithmException {
+public void Registerclick(ActionEvent event) throws IOException, NoSuchAlgorithmException, ClassNotFoundException {
     String[] f1 = {"computers and data science","science"};
     if (rdbtnStudent.isSelected()) {
         RadioButton dep = (RadioButton) Dpt.getSelectedToggle();
-        Student s1 = new Student(Integer.parseInt(stuId.getText()), stuName.getText(), stuDate.getValue().toString(), stuAddress.getText(), stuNumber.getText(), Integer.parseInt(tfEnrollmentYear.getText()), cboxSemester.getValue().toString(), null, null, DepsSTUDENT(dep.getText()), 0, 0);
+        Student s1 = new Student(Integer.parseInt(stuId.getText()), stuName.getText(), stuDate.getValue().toString(), stuAddress.getText(), stuNumber.getText(), Integer.parseInt(tfEnrollmentYear.getText()), cboxSemester.getValue().toString(), null, DepsSTUDENT(dep.getText()), 0, 0);
         if (passwordSave(passid.getText(), confpassid.getText())) {
             s1.saveData();
+            Student.saveStudents();
+            for(int i =0;i<Student.getStudents().size();i++) {
+                System.out.println(Student.getStudents().get(i).getID());
+            }
             FXMLLoader fxmlLoader = new FXMLLoader(loginScreen.class.getResource("loginScreen.fxml"));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(fxmlLoader.load(), 800, 450);

@@ -1,6 +1,8 @@
 package mainClasses;
 
-public abstract class Person {
+import java.io.Serializable;
+
+public abstract class Person implements Serializable {
     protected int ID;
     protected String name;
     protected String dateOfBirth;

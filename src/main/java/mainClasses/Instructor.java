@@ -5,20 +5,25 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Instructor extends Person{
+public class Instructor extends Person implements Serializable {
     private ArrayList<Department> departments;
+
+    public static ArrayList<Instructor> getInstructors() {
+        return instructors;
+    }
+
+    private static ArrayList<Instructor> instructors = new ArrayList<>();
 
 
     public Instructor(int ID, String name, String dateOfBirth, String address, String telephoneNumber, ArrayList<Department> departments)
     {
         super(ID, name, dateOfBirth, address, telephoneNumber);
         this.departments = departments;
+        instructors.add(this);
     }
     public ArrayList<Department> getDepartments()
     {
@@ -90,6 +95,43 @@ public class Instructor extends Person{
         workbook.write(fos);
         fos.close();
         loadDepartments();
+    }
+    public static void loadInstructors() throws IOException, ClassNotFoundException {
+        ArrayList<Instructor> s1 = null;
+        FileInputStream fileIn = new FileInputStream("Instructors.ser");
+        ObjectInputStream in = new ObjectInputStream(fileIn);
+        s1 = (ArrayList<Instructor>) in.readObject();
+        in.close();
+        fileIn.close();
+        if (s1 != null) {
+            System.out.println("Loaded successfully !");;
+        }
+        for(int i =0;i< s1.size();i++){
+            Instructor.getInstructors().add(s1.get(i));
+        }
+    }
+    public static void saveInstructors(){
+        ArrayList<Instructor> s2 = Instructor.getInstructors();
+
+        try {
+            FileOutputStream fileOut = new FileOutputStream("Instructors.ser");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(s2);
+            out.close();
+            fileOut.close();
+            System.out.println("Saved to Instructors.ser");
+        } catch (IOException e) {
+            System.out.println("Error While serializing");
+            e.printStackTrace();
+        }
+    }
+    public static Instructor getInstructorByID(String ID){
+        for(Instructor instructor: Instructor.getInstructors()){
+            if(Integer.toString(instructor.getID()).equals(ID)){
+                return  instructor;
+            }
+        }
+        return null;
     }
 
     @Override

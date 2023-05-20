@@ -78,9 +78,6 @@ public class HomeController {
             stage.show();
         }
         public void registerCoursebtn(ActionEvent event) throws IOException {
-            RegisterCoursesController registerCoursesController = new RegisterCoursesController();
-            registerCoursesController.setStudentID(idlogin);
-
             FXMLLoader fxmlLoader = new FXMLLoader(loginScreen.class.getResource("RegisterCourses.fxml"));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(fxmlLoader.load(), 800, 450);

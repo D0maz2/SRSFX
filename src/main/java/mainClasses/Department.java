@@ -1,18 +1,25 @@
 package mainClasses;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Department {
+public class Department  implements Serializable {
     private int ID;
     private String name;
     private String[] faculties;
+    private static ArrayList<Department> deps = new ArrayList<>();
 
+    public static ArrayList<Department> getDeps() {
+        return deps;
+    }
 
     public Department(int ID, String name, String[] faculties)
     {
         this.ID = ID;
         this.name = name;
         this.faculties = faculties;
+        deps.add(this);
     }
     public int getID()
     {

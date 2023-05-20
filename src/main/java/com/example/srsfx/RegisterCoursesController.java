@@ -9,34 +9,41 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import mainClasses.*;
+import mainClasses.Course;
+import mainClasses.Department;
+import mainClasses.Instructor;
+import mainClasses.Student;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class RegisterCoursesController {
-    private static String studentID;
-    public String getStudentID() {
-        return studentID;
-    }
-    public void setStudentID(String studentID) {
-        this.studentID = String.valueOf(studentID);
-    }
-
     @FXML
     ComboBox cboxTerm;
     @FXML
-    Button btnCancel;
+    TableColumn tcCourseName;
     @FXML
-    ListView ls;
+    TableColumn tcCourseID;
+    @FXML
+    TableColumn tcDay;
+    @FXML
+    TableColumn tcPeriod;
+    @FXML
+    TableColumn tcClassroom;
+    @FXML
+    TableColumn tcInstructor;
+    @FXML
+    TableColumn tcCredits;
+    @FXML
+    TableColumn tcSeats;
+    @FXML
+    Button btnCancel;
     ObservableList<String> list = FXCollections.observableArrayList();
     ArrayList<Course> allCourses = new ArrayList<Course>();
     ArrayList<Course> registerableCourses = new ArrayList<Course>();
-    allStudents allStudents = new allStudents();
-
     public void initialize(){
         list.add("First");
         list.add("Second");
@@ -48,10 +55,23 @@ public class RegisterCoursesController {
         list.add("Eighth");
         cboxTerm.setItems(list);
 
-        //allStudents.add();
+        tcCourseName.setSortable(false);
+        tcCourseName.setResizable(false);
+        tcCourseID.setSortable(false);
+        tcCourseID.setResizable(false);
+        tcDay.setSortable(false);
+        tcDay.setResizable(false);
+        tcPeriod.setSortable(false);
+        tcPeriod.setResizable(false);
+        tcClassroom.setSortable(false);
+        tcClassroom.setResizable(false);
+        tcInstructor.setSortable(false);
+        tcInstructor.setResizable(false);
+        tcCredits.setSortable(false);
+        tcCredits.setResizable(false);
+        tcSeats.setSortable(false);
+        tcSeats.setResizable(false);
 
-        filterCourses(mainClasses.allStudents.getStudentByID(studentID));
-        ls.getItems().addAll(registerableCourses);
     }
     public void cancelOnclick (ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(loginScreen.class.getResource("Home.fxml"));
@@ -62,9 +82,6 @@ public class RegisterCoursesController {
         stage.getIcons().add(new Image(registerController.class.getResourceAsStream("/thumbnail.jpg")));
         stage.setScene(scene);
         stage.show();
-        for(Course course: registerableCourses) {
-            System.out.println(course.getName());
-        }
     }
 
     public void filterCourses(Student S1){
@@ -90,5 +107,4 @@ public class RegisterCoursesController {
             }
         }
     }
-
 }
