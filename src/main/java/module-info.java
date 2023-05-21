@@ -5,5 +5,6 @@ module com.example.srsfx {
 
 
     opens com.example.srsfx to javafx.fxml;
+    opens mainClasses to java.base;
     exports com.example.srsfx;
 }
