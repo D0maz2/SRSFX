@@ -1,8 +1,9 @@
 package mainClasses;
 
-import java.io.Serializable;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class Department  implements Serializable {
     private int ID;
@@ -44,6 +45,36 @@ public class Department  implements Serializable {
     public void setFaculties(String[] faculties)
     {
         this.faculties = faculties;
+    }
+    public static void saveDepartments(){
+        ArrayList<Department> s2 = Department.getDeps();
+
+        try {
+            FileOutputStream fileOut = new FileOutputStream("Departments.ser");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(s2);
+            out.close();
+            fileOut.close();
+            System.out.println("Saved to Departments.ser");
+        } catch (IOException e) {
+            System.out.println("Error While serializing - Departments - ");
+            e.printStackTrace();
+        }
+    }
+
+    public static void loadDepartments() throws IOException, ClassNotFoundException {
+        ArrayList<Department> s1 = null;
+        FileInputStream fileIn = new FileInputStream("Departments.ser");
+        ObjectInputStream in = new ObjectInputStream(fileIn);
+        s1 = (ArrayList<Department>) in.readObject();
+        in.close();
+        fileIn.close();
+        if (s1 != null) {
+            System.out.println("Loaded successfully !");;
+        }
+        for(int i = 0; i< Objects.requireNonNull(s1).size(); i++){
+            Department.getDeps().add(s1.get(i));
+        }
     }
     @Override
     public String toString()

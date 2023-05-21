@@ -3,6 +3,7 @@ package mainClasses;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Stack;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
@@ -26,23 +27,23 @@ public class Main {
         Instructor i3 = new Instructor(1030,"ebrahim","15/9/1965","cairo,egypt", "01243528876",Department.getDeps());
         Instructor i4 = new Instructor(1040,"mahmoud","7/12/1977","riyad,saudi arabia", "01510144055",Department.getDeps()) ;
         Instructor i5 = new Instructor(1050,"soha","28/4/1980","london,uk" , "0125341688" ,Department.getDeps()) ;
-        Classroom cl1 = new Classroom(1001,"204",32,50,Course.getCourses());
-        Classroom cl2 = new Classroom(1002,"207",44,50,Course.getCourses());
-        Classroom cl3 = new Classroom(1003,"106",25,30,Course.getCourses());
-        Classroom cl4 = new Classroom(1004,"404",42,50,Course.getCourses());
-        Classroom cl5 = new Classroom(1005,"417",30,50,Course.getCourses());
+        Classroom cl1 = new Classroom(1001,"204",32,50,null);
+        Classroom cl2 = new Classroom(1002,"207",44,50,null);
+        Classroom cl3 = new Classroom(1003,"106",25,30,null);
+        Classroom cl4 = new Classroom(1004,"404",42,50,null);
+        Classroom cl5 = new Classroom(1005,"417",30,50,null);
 
 
 
-        new Course("Discrete",100,i1,Department.getDeps(),3,942,cl1,p1,"wed",null,null,"A+");
-        new Course("DS",102,i2,Department.getDeps(),1,940,cl1,p1,null,null,null,"A-");
-        new Course("Algebra",103,i3,Department.getDeps(),1,940,cl1,p1,null,null,null,"B-");
-        new Course("Computer Systems",104,i4,Department.getDeps(),1,940,cl1,p1,null,null,null,"C");
-        new Course("English",105,i5,Department.getDeps(),1,940,cl1,p1,null,null,null,"C+");
+//        new Course("Discrete",100,i1,Department.getDeps(),3,942,cl1,p1,"wed",null,null,"A+");
+//        new Course("DS",102,i2,Department.getDeps(),1,940,cl1,p1,null,null,null,"A-");
+//        new Course("Algebra",103,i3,Department.getDeps(),1,940,cl1,p1,null,null,null,"B-");
+//        new Course("Computer Systems",104,i4,Department.getDeps(),1,940,cl1,p1,null,null,null,"C");
+//        new Course("English",105,i5,Department.getDeps(),1,940,cl1,p1,null,null,null,"C+");
 
-        //new Student(101010,"mohamed","11/5/1992","alexandria","01265739953",2010,"Fall",Course.getCourses(),d2,3.27,2.5);
-       //new Student(102391,"ahmed","21/3/2004","cairo","01049585839",2022,"Fall",Course.getCourses(),d1,3.12,3.0);
-      //  new Student(338920,"mostafa","9/7/2004","fayom","01193627853",2022,"Fall",Course.getCourses(),d3,2.7,3.3);
+       // new Student(101010,"mohamed","11/5/1992","alexandria","01265739953",2010,"Fall",Course.getCourses(),d2,3.27,2.5);
+//       new Student(102391,"ahmed","21/3/2004","cairo","01049585839",2022,"Fall",Course.getCourses(),d1,3.12,3.0);
+//        new Student(338920,"mostafa","9/7/2004","fayom","01193627853",2022,"Fall",Course.getCourses(),d3,2.7,3.3);
 //         new Student(204451,"omar","5/1/2004","alexandria","010593852101",2022,"Fall",Course.getCourses(),d5,3.88,3.6);
 //         new Student(2674839,"abd allah","25/12/2002","alexandria","0115427793",2020,"Fall",Course.getCourses(),d1,2.2,2.8);
 //        new Student(696969,"abd allah","25/12/2002","alexandria","0115427793",2020,"Fall",Course.getCourses(),d1,2.2,2.8);
@@ -52,8 +53,19 @@ public class Main {
 //    System.out.println(Student.getStudents().get(i).getID());
 //}
 
-
+        Student.loadStudents();
+       ArrayList<Course> course = Student.getStudentByID("101010").getAllRegisteredCourses();
+       for (int i = 0 ;i< course.size();i++){
+           System.out.println(course.get(i).getName());
+       }
+//       Student.getStudentByID("101010").getAllRegisteredCourses().add(new Course("Computer Systems",104,i4,Department.getDeps(),1,940,cl1,p1,null,null,null,"C"));
+//        Student.saveStudents();
     }
+
+
+
+
+
     public static void loadStudent() throws IOException {
         Workbook workbook = new HSSFWorkbook(new FileInputStream("Database.xls"));
         for (int x = 0;x<workbook.getNumberOfSheets();x++) {

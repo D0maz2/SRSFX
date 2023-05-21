@@ -19,7 +19,7 @@ public class loginScreen extends Application {
         stage.setTitle("FCDS Login");
         stage.getIcons().add(new Image(loginScreen.class.getResourceAsStream("/thumbnail.jpg")));
         stage.setScene(scene);
-        stage.show();           //Must be at the end of the start function
+        stage.show();
     }
 
     public static void main(String[] args) throws IOException {

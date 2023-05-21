@@ -1,8 +1,9 @@
 package mainClasses;
 
-import java.io.Serializable;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class Course implements Serializable {
 
@@ -137,6 +138,35 @@ public class Course implements Serializable {
     public void setGrade(String grade)
     {
         this.grade = grade;
+    }
+    public static void saveCourses(){
+        ArrayList<Course> s2 = Course.getCourses();
+
+        try {
+            FileOutputStream fileOut = new FileOutputStream("Courses.ser");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(s2);
+            out.close();
+            fileOut.close();
+            System.out.println("Saved to Courses.ser");
+        } catch (IOException e) {
+            System.out.println("Error While serializing - Courses - ");
+            e.printStackTrace();
+        }
+    }
+    public static void loadCourses() throws IOException, ClassNotFoundException {
+        ArrayList<Course> s1 = null;
+        FileInputStream fileIn = new FileInputStream("Courses.ser");
+        ObjectInputStream in = new ObjectInputStream(fileIn);
+        s1 = (ArrayList<Course>) in.readObject();
+        in.close();
+        fileIn.close();
+        if (s1 != null) {
+            System.out.println("Loaded successfully !");;
+        }
+        for(int i = 0; i< Objects.requireNonNull(s1).size(); i++){
+            Course.getCourses().add(s1.get(i));
+        }
     }
     @Override
     public String toString()

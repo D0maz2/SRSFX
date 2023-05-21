@@ -59,17 +59,15 @@ public class Classroom implements Serializable {
         fos.close();
         loadCourses();
     }
-    public static void loadClassrooms() throws IOException {
+    public static void LoadExcelClassrooms() throws IOException {
         Workbook workbook = new HSSFWorkbook(new FileInputStream("Classrooms.xls"));
         for (int x = 0;x<workbook.getNumberOfSheets();x++) {
             ArrayList<String> courseName = new ArrayList<>();
             ArrayList<Course> finalCourses = new ArrayList<>();
             Sheet sheet = workbook.getSheet(workbook.getSheetAt(x).getSheetName());
-
             for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
                 courseName.add(sheet.getRow(i).getCell(4).toString());
             }
-
             for (int i = 0; i < courseName.size(); i++) {
                 for (int j = 0; j < Course.getCourses().size(); j++) {
                     if (Objects.equals(courseName.get(i), Course.getCourses().get(j).getName())) {
@@ -77,14 +75,7 @@ public class Classroom implements Serializable {
                     }
                 }
             }
-//            Department department = null;
-//            for (int i = 0; i < Department.getDeps().size(); i++) {
-//                if (Objects.equals(d1, Department.getDeps().get(i).getName())) {
-//                    department = Department.getDeps().get(i);
-//                }
-//            }
             String location_id = sheet.getRow(1).getCell(1).toString();
-
             int ID_1 = Integer.parseInt(sheet.getRow(1).getCell(0).toString());
             int currentCap = (int) sheet.getRow(1).getCell(2).getNumericCellValue();
             int maxCap = (int) sheet.getRow(1).getCell(3).getNumericCellValue();
@@ -109,6 +100,53 @@ public class Classroom implements Serializable {
         workbook.write(fos);
         fos.close();
         System.out.println("Data saved: " + "Classrooms.xls");
+    }
+    public static ArrayList<Course> load_from_excel_courses(String id) throws IOException {
+        Workbook workbook = new HSSFWorkbook(new FileInputStream("Classrooms.xls"));
+            ArrayList<String> courseNames = new ArrayList<>();
+            ArrayList<Course> finalCourses = new ArrayList<>();
+            Sheet sheet = workbook.getSheet(id);
+            for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
+                courseNames.add(sheet.getRow(i).getCell(10).toString());
+            }
+            for (int i = 0; i < courseNames.size(); i++) {
+                for (int j = 0; j < Course.getCourses().size(); j++) {
+                    if (Objects.equals(courseNames.get(i), Course.getCourses().get(j).getName())) {
+                        finalCourses.add(Course.getCourses().get(j));
+                    }
+                }
+            }
+            return finalCourses;
+    }
+    public static void saveClassrooms(){
+        ArrayList<Classroom> s2 = Classroom.getClassrooms();
+
+        try {
+            FileOutputStream fileOut = new FileOutputStream("Classrooms.ser");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(s2);
+            out.close();
+            fileOut.close();
+            System.out.println("Saved to Classrooms.ser");
+        } catch (IOException e) {
+            System.out.println("Error While serializing - Classrooms - ");
+            e.printStackTrace();
+        }
+    }
+
+    public static void loadClassrooms() throws IOException, ClassNotFoundException {
+        ArrayList<Classroom> s1 = null;
+        FileInputStream fileIn = new FileInputStream("Classrooms.ser");
+        ObjectInputStream in = new ObjectInputStream(fileIn);
+        s1 = (ArrayList<Classroom>) in.readObject();
+        in.close();
+        fileIn.close();
+        if (s1 != null) {
+            System.out.println("Loaded successfully !");;
+        }
+        for(int i = 0; i< Objects.requireNonNull(s1).size(); i++){
+            Classroom.getClassrooms().add(s1.get(i));
+        }
     }
     public int getID()
     {
@@ -157,7 +195,6 @@ public class Classroom implements Serializable {
                 ", location='" + location + '\'' +
                 ", currentCapacity=" + currentCapacity +
                 ", maxCapacity=" + maxCapacity +
-                //", coursesHeld=" + coursesHeld.toString() +
                 '}';
     }
 }
