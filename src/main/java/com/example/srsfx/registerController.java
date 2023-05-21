@@ -12,6 +12,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import javafx.collections.FXCollections;
+import mainClasses.Course;
 import mainClasses.Department;
 import mainClasses.Instructor;
 import mainClasses.Student;
@@ -178,7 +179,7 @@ public void Registerclick(ActionEvent event) throws IOException, NoSuchAlgorithm
     String[] f1 = {"computers and data science","science"};
     if (rdbtnStudent.isSelected()) {
         RadioButton dep = (RadioButton) Dpt.getSelectedToggle();
-        Student s1 = new Student(Integer.parseInt(stuId.getText()), stuName.getText(), stuDate.getValue().toString(), stuAddress.getText(), stuNumber.getText(), Integer.parseInt(tfEnrollmentYear.getText()), cboxSemester.getValue().toString(), null, DepsSTUDENT(dep.getText()), 0, 0);
+        Student s1 = new Student(Integer.parseInt(stuId.getText()), stuName.getText(), stuDate.getValue().toString(), stuAddress.getText(), stuNumber.getText(), Integer.parseInt(tfEnrollmentYear.getText()), cboxSemester.getValue().toString(), Course.getRandomCourseInArraylist(), DepsSTUDENT(dep.getText()), 0, 0);
         if (passwordSave(passid.getText(), confpassid.getText())) {
             s1.SaveExcelData();
             Student.saveStudents();

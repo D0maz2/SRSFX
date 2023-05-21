@@ -1,16 +1,31 @@
 package mainClasses;
 
-import java.io.Serializable;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Course implements Serializable {
+    private static Long serialVersionUID = 8176370927276558318L;
 
     private String name;
     private int courseNumber;
     private Instructor instructor;
     private ArrayList<Department> departments;
     private static ArrayList<Course> courses = new ArrayList<>();
+    private static Course randomCourse = new Course();
+    private static ArrayList<Course> randomCourseInArraylist = new ArrayList<>();
+
+    public static void setCourses(ArrayList<Course> courses) {
+        Course.courses = courses;
+    }
+
+    public static ArrayList<Course> getRandomCourseInArraylist() {
+        return randomCourseInArraylist;
+    }
+
+    public static void setRandomCourseInArraylist(ArrayList<Course> randomCourseInArraylist) {
+        Course.randomCourseInArraylist = randomCourseInArraylist;
+    }
 
     public static ArrayList<Course> getCourses() {
         return courses;
@@ -28,6 +43,7 @@ public class Course implements Serializable {
 
     public Course(String name, int courseNumber, Instructor instructor, ArrayList<Department> departments, int term, int credits, Classroom classroom, int[] periods, String dayOfTheWeek, ArrayList<Course> prerequisites, ArrayList<String> textbooks, String grade)
     {
+        randomCourseInArraylist.add(randomCourse);
         this.name = name;
         this.courseNumber = courseNumber;
         this.instructor = instructor;
@@ -41,6 +57,9 @@ public class Course implements Serializable {
         this.textbooks = textbooks;
         this.grade = grade;
         courses.add(this);
+    }
+    public Course(){
+        this.setName("name");
     }
     public String getName()
     {
@@ -178,5 +197,35 @@ public class Course implements Serializable {
             flag = true;
         }
         return flag;
+    }
+    public static void loadCourses() throws IOException, ClassNotFoundException, IOException {
+        ArrayList<Course> s1 = null;
+        FileInputStream fileIn = new FileInputStream("Courses.ser");
+        ObjectInputStream in = new ObjectInputStream(fileIn);
+        s1 = (ArrayList<Course>) in.readObject();
+        in.close();
+        fileIn.close();
+        if (s1 != null) {
+            System.out.println("Loaded successfully !");;
+        }
+        for(int i =0;i< s1.size();i++){
+            Course.getCourses().add(s1.get(i));
+        }
+    }
+
+    public static void saveCourses(){
+        ArrayList<Course> s2 = Course.getCourses();
+
+        try {
+            FileOutputStream fileOut = new FileOutputStream("Courses.ser");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(s2);
+            out.close();
+            fileOut.close();
+            System.out.println("Saved to Courses.ser");
+        } catch (IOException e) {
+            System.out.println("Error While serializing");
+            e.printStackTrace();
+        }
     }
 }

@@ -11,6 +11,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import mainClasses.Course;
+import mainClasses.Student;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -66,8 +68,11 @@ public class HomeController {
 
     public void initialize() throws IOException {
             dataload(idlogin);
+            RegisterCoursesController.setStudentID(idlogin);
     }
         public void cancelOnclick (ActionEvent event) throws IOException {
+            Student.saveStudents();
+            Course.saveCourses();
             FXMLLoader fxmlLoader = new FXMLLoader(loginScreen.class.getResource("loginScreen.fxml"));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(fxmlLoader.load(), 800, 450);
@@ -78,6 +83,7 @@ public class HomeController {
             stage.show();
         }
         public void registerCoursebtn(ActionEvent event) throws IOException {
+            RegisterCoursesController.setStudentID(idlogin);
             FXMLLoader fxmlLoader = new FXMLLoader(loginScreen.class.getResource("RegisterCourses.fxml"));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(fxmlLoader.load(), 800, 450);

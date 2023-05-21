@@ -29,7 +29,7 @@
                   <TableColumn fx:id="tcCourseName" prefWidth="233.0" text="Course Name" />
                   <TableColumn fx:id="tcCourseID" prefWidth="190.0" text="Course ID" />
                   <TableColumn fx:id="tcCredits" prefWidth="53.0" text="Credits" />
-                  <TableColumn fx:id="tcGrade" prefWidth="50.0" text="Grade" />
+                  <TableColumn fx:id="tcGrade" minWidth="9.0" prefWidth="49.0" text="Grade" />
                </columns>
             </TableView>
             <Button fx:id="btnCancel" layoutX="498.0" layoutY="14.0" mnemonicParsing="false" onAction="#cancelOnclick" prefHeight="25.0" prefWidth="213.0" text="Back" />
@@ -38,12 +38,12 @@
                   <Font name="Krub SemiBold" size="14.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" layoutX="84.0" layoutY="18.0" prefHeight="18.0" prefWidth="243.0" text="Name">
+            <Label fx:id="lbName" alignment="CENTER" layoutX="84.0" layoutY="18.0" prefHeight="18.0" prefWidth="243.0" text="Name">
                <font>
                   <Font name="Krub SemiBold" size="14.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" layoutX="355.0" layoutY="18.0" prefHeight="18.0" prefWidth="138.0" text="ID">
+            <Label fx:id="lbID" alignment="CENTER" layoutX="355.0" layoutY="18.0" prefHeight="18.0" prefWidth="138.0" text="ID">
                <font>
                   <Font name="Krub SemiBold" size="14.0" />
                </font>

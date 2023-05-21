@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -28,6 +29,10 @@ public class showTranscriptController {
     TableColumn tcCredits;
     @FXML
     TableColumn tcGrade;
+    @FXML
+    Label lbName;
+    @FXML
+    Label lbID;
 
 
     private static String studentID;
@@ -42,6 +47,9 @@ public class showTranscriptController {
     public void initialize() {
         Student student = Student.getStudentByID(studentID);
         ObservableList<Course> data = FXCollections.observableArrayList(student.getAllRegisteredCourses());
+
+        lbName.setText(student.getName());
+        lbID.setText(studentID);
 
         tvTable.setItems(data);
         tcCourseName.setCellValueFactory(new PropertyValueFactory<>("name"));

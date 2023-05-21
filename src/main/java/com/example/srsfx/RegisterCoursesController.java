@@ -16,48 +16,50 @@ import mainClasses.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 
 public class RegisterCoursesController {
-    private static String studentID;
+    private static String studentRegID;
     public String getStudentID() {
-        return studentID;
+        return studentRegID;
     }
-    public void setStudentID(String studentID) {
-        this.studentID = String.valueOf(studentID);
+    public static void setStudentID(String studentID) {
+        RegisterCoursesController.studentRegID=studentID;
     }
-
+    private static Student S;
     @FXML
-    ComboBox cboxTerm;
+    RadioButton rdbtnFirst;
+    @FXML
+    RadioButton rdbtnSecond;
     @FXML
     Button btnCancel;
     @FXML
     ListView ls;
     ObservableList<String> list = FXCollections.observableArrayList();
-    ArrayList<Course> registerableCourses = new ArrayList<Course>();
     public void initialize(){
-        list.add("First");
-        list.add("Second");
-        list.add("Third");
-        list.add("Fourth");
-        list.add("Fifth");
-        list.add("Sixth");
-        list.add("Seventh");
-        list.add("Eighth");
-        cboxTerm.setItems(list);
+        Student student = Student.getStudentByID(studentRegID);
 
-        cboxTerm.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            //With every change in the combobox the filterCourses will be called again and the removed courses will be back fixing the comment in line 57
-            filterCourses(Student.getStudentByID(studentID));
-            ObservableList<Course> observableList = FXCollections.observableList(registerableCourses);
-            ls.setItems(observableList);
+        ArrayList<Course> courses = Course.getCourses();
+        ObservableList<Course> observableList = FXCollections.observableList(courses);
+        ls.setItems(observableList);
 
-            int selectedIndex = cboxTerm.getSelectionModel().getSelectedIndex();
-            for(Course course: observableList)
-                if((selectedIndex+1)!=course.getTerm()){
-                    observableList.remove(course);       //course will be removed I need to get it back
+
+
+            if(rdbtnFirst.isSelected()){
+                for(Course course : courses){
+                if(course.getTerm()!=1){
+                    courses.remove(course);
                 }
-        });
-
+            }
+            }
+        if(rdbtnSecond.isSelected()){
+            for(Course course : courses){
+                if(course.getTerm()!=2){
+                    courses.remove(course);
+                }
+            }
+        }
         //Test if this works first
         ls.setCellFactory(new Callback<ListView<Course>, ListCell<Course>>() {
             @Override
@@ -67,7 +69,7 @@ public class RegisterCoursesController {
                     protected void updateItem(Course item, boolean empty) {
                         super.updateItem(item, empty);
                         if (item != null) {
-                            setText(item.getName() + " " + item.getCourseNumber() + " " + item.getDayOfTheWeek() + " " + item.getPeriods() + " " + item.getClassroom() + " " + item.getCredits() + " " + item.getClassroom().getCurrentCapacity());
+                            setText(item.getName() + " " + item.getCourseNumber() + " " + item.getDayOfTheWeek() + " " + item.getPeriods() + " " + item.getClassroom().getLocation() + " " + item.getCredits() + " " + item.getClassroom().getCurrentCapacity());
                         } else {
                             setText(null);
                         }
@@ -79,13 +81,16 @@ public class RegisterCoursesController {
         ls.setOnMouseClicked(event -> {
             if (event.getClickCount() == 1) {
                 Course selectedItem = (Course) ls.getSelectionModel().getSelectedItem();
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to Register " + selectedItem.getName() + "?", ButtonType.YES, ButtonType.NO);
-                alert.showAndWait();
 
-                if (alert.getResult() == ButtonType.YES) {
-                    System.out.println("Course Registered: " + selectedItem.getName());
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to Register " + selectedItem.getName() + "?", ButtonType.YES, ButtonType.NO);
+                    alert.showAndWait();
+
+                    if (alert.getResult() == ButtonType.YES) {
+                        System.out.println("Course Registered: " + selectedItem.getName());
+                        student.getAllRegisteredCourses().add(selectedItem);
+                    }
                 }
-            }
+
         });
     }
     public void cancelOnclick (ActionEvent event) throws IOException {
@@ -97,32 +102,39 @@ public class RegisterCoursesController {
         stage.getIcons().add(new Image(registerController.class.getResourceAsStream("/thumbnail.jpg")));
         stage.setScene(scene);
         stage.show();
-        for(Course course: registerableCourses) {
-            System.out.println(course.getName());
-        }
     }
 
-    public void filterCourses(Student S1){
-        for(Course course: mainClasses.Course.getCourses()){
-            if(course.getPrerequisites()==null){
-                registerableCourses.add(course);
-            } else{
-                    if(S1.getAllRegisteredCourses().contains(course.getPrerequisites())){
-                        registerableCourses.add(course);
-                }
-            }
-        }
-        for(Course course: registerableCourses){
-            for(Course Done: S1.getAllRegisteredCourses()){
-                if(course == Done){
-                    registerableCourses.remove(course);
-                }
-                for(Department department: course.getDepartments()){
-                    if(department!=S1.getDepartment()){
-                        registerableCourses.remove(course);
-                    }
-                }
-            }
-        }
-    }
+//    private ArrayList<Course> filterCourses(Student s, ArrayList<Course> registerableCourses) {
+//        System.out.println("I started running in the woods.");
+//        registerableCourses.clear();
+//        Iterator<Course> iterator = Course.getCourses().iterator();
+//        while (iterator.hasNext()) {
+//            Course course = iterator.next();
+//            boolean isDepartmentMatched = false;
+//            boolean hasNoPrerequisites = false;
+//            boolean arePrerequisitesMet = false;
+//            for(Department department: course.getDepartments()) {
+//                if (s.getDepartment() == null || department.equals(s.getDepartment())) {
+//                    isDepartmentMatched = true;
+//                    break;
+//                }
+//            }
+//            if(course.getPrerequisites()==null){
+//                hasNoPrerequisites = true;
+//            }
+//            if(s.getAllRegisteredCourses().contains(course.getPrerequisites())){
+//                arePrerequisitesMet = true;
+//            }
+//            if (isDepartmentMatched && (hasNoPrerequisites || arePrerequisitesMet)) {
+//                registerableCourses.add(course);
+//            }
+//        }
+//
+//        for (Course course:registerableCourses
+//             ) {
+//            System.out.println(course);
+//
+//        }
+//        return registerableCourses;
+//    }
 }

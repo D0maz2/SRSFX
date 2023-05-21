@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class Student extends Person implements Serializable {
+    private static Long serialVersionUID = 6388821038706924043L;
     private int enrolledYear;
     private String enrolledSemester;
 
@@ -31,7 +32,8 @@ public class Student extends Person implements Serializable {
         super(ID, name, dateOfBirth, address, telephoneNumber);
         this.enrolledYear = enrolledYear;
         this.enrolledSemester = enrolledSemester;
-        this.allRegisteredCourses = allRegisteredCourses;
+        this.allRegisteredCourses = new ArrayList<Course>();
+        allRegisteredCourses.add(new Course());
         this.department = department;
         this.GPA = GPA;
         this.CGPA = CGPA;
