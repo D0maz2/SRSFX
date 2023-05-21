@@ -138,6 +138,14 @@ public class Course implements Serializable {
     {
         this.grade = grade;
     }
+    public Course getCourseByID(String ID){
+        for(Course course: Course.getCourses()){
+            if(Integer.toString(course.getCourseNumber()).equals(ID)){
+                return  course;
+            }
+        }
+        return null;
+    }
     @Override
     public String toString()
     {
