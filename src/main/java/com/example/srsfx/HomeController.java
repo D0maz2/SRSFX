@@ -87,6 +87,19 @@ public class HomeController {
             stage.setScene(scene);
             stage.show();
         }
+        public void showTranscriptOnclick(ActionEvent event) throws IOException {
+        showTranscriptController showTranscriptController = new showTranscriptController();
+        showTranscriptController.setStudentID(idlogin);
+
+            FXMLLoader fxmlLoader = new FXMLLoader(loginScreen.class.getResource("showTranscriptScreen.fxml"));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(fxmlLoader.load(), 800, 450);
+            stage.setResizable(false);
+            stage.setTitle("FCDS Student Transcript");
+            stage.getIcons().add(new Image(HomeController.class.getResourceAsStream("/thumbnail.jpg")));
+            stage.setScene(scene);
+            stage.show();
+        }
         public void dataload (String id) throws IOException {
             ArrayList<String> data = readData(id);
             lbName.setText(data.get(0));
